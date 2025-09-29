@@ -13,8 +13,8 @@
   },
   "scripts": {
     "quartz": "./quartz/bootstrap-cli.mjs",
-    "build": "npx quartz build -o public/blog --concurrency=4 && rm -rf ./public/Images ./public/notes ./public/post ./public/static ./public/tags ./public/projects &&  mv -f ./public/blog/* ./public/ && rm -r ./public/blog",
-    "dev": "npx quartz build -o public/blog --serve --concurrency=2",
+    "build": "node ./quartz/bootstrap-cli.mjs build -o public/blog --concurrency=4 && rm -rf ./public/Images ./public/notes ./public/post ./public/static ./public/tags ./public/projects &&  mv -f ./public/blog/* ./public/ && rm -r ./public/blog",
+    "dev": "node ./quartz/bootstrap-cli.mjs build -o public/blog --serve --concurrency=2",
     "check": "tsc --noEmit && npx prettier . --check",
     "format": "npx prettier . --write",
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1"
@@ -37,9 +37,11 @@
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@floating-ui/dom": "^1.6.11",
+    "@google/generative-ai": "^0.24.1",
     "@napi-rs/simple-git": "0.1.19",
     "@tweenjs/tween.js": "^25.0.0",
     "async-mutex": "^0.5.0",
+    "bluebird": "^3.7.2",
     "chalk": "^5.3.0",
     "chokidar": "^4.0.1",
     "cli-spinner": "^0.2.10",
@@ -47,6 +49,7 @@
     "esbuild-sass-plugin": "^3.3.1",
     "flexsearch": "0.7.43",
     "github-slugger": "^2.0.0",
+    "glob": "^11.0.3",
     "globby": "^14.0.2",
     "gray-matter": "^4.0.3",
     "hast-util-to-html": "^9.0.3",

@@ -1,15 +1,12 @@
-import { pathToRoot, slugTag } from "../util/path"
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import { classNames } from "../util/lang"
-import PageTitle from "./PageTitle"
-import Darkmode from "./Darkmode"
-import Search from "./Search"
+import {
+  QuartzComponent,
+  QuartzComponentConstructor,
+  QuartzComponentProps,
+} from "./types";
 
-// we not using this refer Search
 
-const SearchCom = Search()
+
 const TopNav: QuartzComponent = (props: QuartzComponentProps) => {
-  // console.log("PROPS", props)
   return (
     <div className="top-nav-wrapper">
       <div className="top-nav-wrapper">
@@ -20,20 +17,9 @@ const TopNav: QuartzComponent = (props: QuartzComponentProps) => {
         </div>
         <div className="desktop-only">
           <div className="flex header-links">
-            <a className="header-link" href="/newsletter">
-              Blog
-            </a>
-            <a className="header-link" href="/notest">
+            <a className="header-link" href="/notes">
               Notes
             </a>
-
-          
-            <a className="header-link" href="/projects">
-              Projects
-            </a>
-            {/* <a className="header-link" href="/Contact">
-              Contact
-            </a> */}
           </div>
         </div>
       </div>
@@ -47,15 +33,8 @@ const TopNav: QuartzComponent = (props: QuartzComponentProps) => {
             </div>
             <div id="mobile-links" className="off-screen-menu">
               <div className="mobile-header-links">
-                <a className="header-link" href="/newsletter">
-                  Blog
-                </a>
-                <a className="header-link" href="/Courses">
+                <a className="header-link" href="/notes">
                   Notes
-                </a>
-              
-                <a className="header-link" href="/projects">
-                  Projects
                 </a>
               </div>
             </div>
@@ -63,8 +42,8 @@ const TopNav: QuartzComponent = (props: QuartzComponentProps) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 TopNav.css = `
 header {
@@ -225,15 +204,10 @@ pre:hover>.clipboard-button {
     transform: translate(-50%,-50%)rotate(-45deg)
 }
 
-`
+`;
 
-export default (() => TopNav) satisfies QuartzComponentConstructor
+export default (() => TopNav) satisfies QuartzComponentConstructor;
 
 function MyProfile() {
-  return (
-    <img
-      src=""
-      alt="Your porfoile"
-    />
-  )
+  return <img src="/static/icon.jpg" alt="My Profile" />;
 }

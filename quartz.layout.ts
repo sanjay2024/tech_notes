@@ -4,14 +4,14 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [Component.Search(
-    {folders: ["notes", "projects",]}
+    {folders: ["notes",]}
   )],
   afterBody: [Component.Graph()],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/example",
-      Linkedin: "https://www.linkedin.com/in/example/",
-      Twitter: "https://twitter.com/example",
+      GitHub: "https://github.com/sanjay2024",
+      Linkedin: "https://www.linkedin.com/in/sanjay2024/",
+      Twitter: "https://x.com/sanjayv22318195",
     },
   }),
 }
