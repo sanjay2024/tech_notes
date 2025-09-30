@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>Hosting the website</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Rubik:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:title" content="Hosting the website"/><meta property="og:description" content="The rest of your content lives here. You can use Markdown here :) The rest of your content lives here. You can use Markdown here :) Hosting a MERN stack application involves deploying both the frontend (React) and backend (Node.js/Express with MongoDB) components, ensuring they communicate properly in a production environment."/><meta property="og:image" content="https://example.github.io/static/icon.jpg"/><meta property="og:width" content="1200"/><meta property="og:height" content="675"/><link rel="icon" href="../../static/icon.jpg"/><meta name="description" content="The rest of your content lives here. You can use Markdown here :) The rest of your content lives here. You can use Markdown here :) Hosting a MERN stack application involves deploying both the frontend (React) and backend (Node.js/Express with MongoDB) components, ensuring they communicate properly in a production environment."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="notes/2024/Hosting-the-website"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><div class="spacer mobile-only"></div></div><div class="center"><div class="page-header"><div class="top-nav-wrapper"><div class="top-nav-wrapper"><div class="headshot"><img src="/static/icon.jpg" alt="My Profile"/></div><div class="desktop-only"><div class="flex header-links"><a class="header-link" href="/notes">Notes</a><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="search"><button class="search-button" id="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div></div></div></div><div class="popover-hint"><div class="mobile-only"><div class="top-nav"><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div><div id="mobile-links" class="off-screen-menu"><div class="mobile-header-links"><a class="header-link" href="/notes">Notes</a><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="search"><button class="search-button" id="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div></div></div></div></div></div></div><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../notes/">notes</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../notes/2024/">2024</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Hosting the website</a></div></nav><h1 class="article-title">Hosting the website</h1><p show-comma="true" class="content-meta"><span>Sep 21, 2025</span><span>5 min read</span></p><ul class="tags"><li><a href="../../tags/deployment" class="internal tag-link">deployment</a></li><li><a href="../../tags/devops" class="internal tag-link">devops</a></li><li><a href="../../tags/backend" class="internal tag-link">backend</a></li></ul><div class="toc mobile-only"><button type="button" id="toc" class="collapsed" aria-controls="toc-content" aria-expanded="false"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class="collapsed"><ul class="overflow"><li class="depth-0"><a href="#1-prepare-your-mern-stack-application-for-deployment" data-for="1-prepare-your-mern-stack-application-for-deployment">1. Prepare Your MERN Stack Application for Deployment</a></li><li class="depth-0"><a href="#frontend-react" data-for="frontend-react">Frontend (React):</a></li><li class="depth-0"><a href="#backend-nodejsexpress" data-for="backend-nodejsexpress">Backend (Node.js/Express):</a></li><li class="depth-0"><a href="#database-mongodb" data-for="database-mongodb">Database (MongoDB):</a></li><li class="depth-0"><a href="#2-choose-a-hosting-platform" data-for="2-choose-a-hosting-platform">2. Choose a Hosting Platform</a></li><li class="depth-0"><a href="#option-1-all-in-one-hosting-eg-render-vercel-heroku" data-for="option-1-all-in-one-hosting-eg-render-vercel-heroku">Option 1: All-in-One Hosting (e.g., Render, Vercel, Heroku)</a></li><li class="depth-0"><a href="#option-2-vps-eg-digitalocean-aws-ec2" data-for="option-2-vps-eg-digitalocean-aws-ec2">Option 2: VPS (e.g., DigitalOcean, AWS EC2)</a></li><li class="depth-0"><a href="#option-3-shared-hosting-not-recommended" data-for="option-3-shared-hosting-not-recommended">Option 3: Shared Hosting (Not Recommended)</a></li><li class="depth-0"><a href="#3-deploy-your-sales-engagement-platform" data-for="3-deploy-your-sales-engagement-platform">3. Deploy Your Sales Engagement Platform</a></li><li class="depth-0"><a href="#4-specific-considerations-for-a-sales-engagement-platform" data-for="4-specific-considerations-for-a-sales-engagement-platform">4. Specific Considerations for a Sales Engagement Platform</a></li><li class="depth-0"><a href="#resources-for-more-info" data-for="resources-for-more-info">Resources for More Info</a></li></ul></div></div></div></div><article class="popover-hint"><p>The rest of your content lives here. You can use <strong>Markdown</strong> here :)</p>
+<p>The rest of your content lives here. You can use <strong>Markdown</strong> here :)
+Hosting a MERN stack application involves deploying both the frontend (React) and backend (Node.js/Express with MongoDB) components, ensuring they communicate properly in a production environment. Below is a step-by-step guide to help you host your MERN stack sales engagement platform:</p>
+<hr/>
+<h3 id="1-prepare-your-mern-stack-application-for-deployment"><strong>1. Prepare Your MERN Stack Application for Deployment</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-prepare-your-mern-stack-application-for-deployment" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Before hosting, ensure your app is production-ready:</p>
+<h3 id="frontend-react"><strong>Frontend (React):</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#frontend-react" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Build the React App:</strong>
+<ul>
+<li>Navigate to your React frontend folder (e.g., client or frontend) in your terminal.</li>
+<li>Run: npm run build</li>
+<li>This creates a build folder with optimized static files.</li>
+</ul>
+</li>
+<li><strong>Serve the Frontend:</strong>
+<ul>
+<li>You can serve the React build folder using your Node.js backend or a static hosting service (more on this later).</li>
+</ul>
+</li>
+</ul>
+<h3 id="backend-nodejsexpress"><strong>Backend (Node.js/Express):</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#backend-nodejsexpress" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Set Up Environment Variables:</strong></p>
+<ul>
+<li>
+<p>Create a .env file in your backend folder (e.g., server or api) to store sensitive data like your MongoDB connection string, API keys, and port number.</p>
+</li>
+<li>
+<p>Example .env:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsx" data-theme="github-light github-dark"><code data-language="jsx" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">PORT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5000</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">MONGO_URI</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">mongodb</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">+</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">srv</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">:</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">//&lt;username>:&lt;password>@cluster0.mongodb.net/&lt;dbname>?retryWrites=true&amp;w=majority</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">NODE_ENV</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">production</span></span></code></pre></figure>
+</li>
+<li>
+<p>Use a package like dotenv in your backend code to load these variables:</p>
+</li>
+</ul>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsx" data-theme="github-light github-dark"><code data-language="jsx" data-theme="github-light github-dark" style="display:grid;"><span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">require</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'dotenv'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">config</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> PORT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> process.env.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">PORT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ||</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 5000</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span></code></pre></figure>
+</li>
+<li>
+<p><strong>Update API Endpoints:</strong></p>
+<ul>
+<li>Your frontend likely uses Axios or fetch to call the backend (e.g., <a href="http://localhost:5000/api" class="external">http://localhost:5000/api<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>). In production, this needs to point to your deployed backend URL (e.g., <a href="https://your-backend-domain.com/api" class="external">https://your-backend-domain.com/api<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>).</li>
+<li>You can set this dynamically using environment variables or configure it during deployment.</li>
+</ul>
+</li>
+<li>
+<p><strong>Combine Frontend and Backend (Optional):</strong></p>
+<ul>
+<li>If you want a single server, configure your Express app to serve the React build folder. Add this to your server.js:</li>
+</ul>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsx" data-theme="github-light github-dark"><code data-language="jsx" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> path</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> require</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'path'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">use</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(express.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">static</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(path.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">join</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(__dirname, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'../client/build'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)));</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">app.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">get</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'*'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, (</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">req</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">res</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  res.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">sendFile</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(path.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">join</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(__dirname, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">'../client/build/index.html'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">));</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">});</span></span></code></pre></figure>
+</li>
+</ul>
+<h3 id="database-mongodb"><strong>Database (MongoDB):</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#database-mongodb" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Use MongoDB Atlas (Recommended):</strong>
+<ul>
+<li>Sign up for MongoDB Atlas (a cloud-hosted MongoDB service).</li>
+<li>Create a cluster, get the connection string (SRV address), and whitelist your server’s IP (or set it to 0.0.0.0/0 for broad access during testing—just tighten security later).</li>
+<li>Update your backend to use this connection string via the .env file.</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h3 id="2-choose-a-hosting-platform"><strong>2. Choose a Hosting Platform</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-choose-a-hosting-platform" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>MERN stack apps require a server for the backend (Node.js) and a way to serve the frontend (static files). Here are some popular options:</p>
+<h3 id="option-1-all-in-one-hosting-eg-render-vercel-heroku"><strong>Option 1: All-in-One Hosting (e.g., Render, Vercel, Heroku)</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#option-1-all-in-one-hosting-eg-render-vercel-heroku" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>These platforms simplify deployment by handling both frontend and backend.</p>
+<ul>
+<li><strong>Render:</strong>
+<ul>
+<li><strong>Steps:</strong>
+<ol>
+<li>Push your project to a GitHub repository.</li>
+<li>Sign up for Render (free tier available).</li>
+<li>Create a new “Web Service” for your backend:
+<ul>
+<li>Link your GitHub repo.</li>
+<li>Set the runtime to Node.</li>
+<li>Specify the build command (e.g., npm install) and start command (e.g., node server.js).</li>
+<li>Add environment variables (e.g., MONGO_URI, PORT).</li>
+</ul>
+</li>
+<li>Create a “Static Site” for your frontend:
+<ul>
+<li>Link the same repo, point to the client folder.</li>
+<li>Set the build command (e.g., npm run build) and publish directory (e.g., build).</li>
+</ul>
+</li>
+<li>Update your frontend API calls to use the backend URL provided by Render (e.g., <a href="https://your-backend.onrender.com" class="external">https://your-backend.onrender.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>).</li>
+</ol>
+</li>
+<li><strong>Pros:</strong> Free tier, easy setup, auto-scaling.</li>
+<li><strong>Cons:</strong> Free tier sleeps after inactivity, slower cold starts.</li>
+</ul>
+</li>
+<li><strong>Vercel (Frontend) + Render/Heroku (Backend):</strong>
+<ul>
+<li><strong>Steps:</strong>
+<ol>
+<li>Deploy the frontend on Vercel:
+<ul>
+<li>Push your React app to GitHub.</li>
+<li>Import it into Vercel, select the client folder, and deploy (Vercel auto-detects React).</li>
+</ul>
+</li>
+<li>Deploy the backend on Render (as above) or Heroku:
+<ul>
+<li>On Heroku, push your backend code, add a Procfile (e.g., web: node server.js), and set environment variables.</li>
+</ul>
+</li>
+<li>Update frontend API calls to the backend URL.</li>
+</ol>
+</li>
+<li><strong>Pros:</strong> Vercel is great for React, free tier available.</li>
+<li><strong>Cons:</strong> Requires splitting frontend and backend.</li>
+</ul>
+</li>
+</ul>
+<h3 id="option-2-vps-eg-digitalocean-aws-ec2"><strong>Option 2: VPS (e.g., DigitalOcean, AWS EC2)</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#option-2-vps-eg-digitalocean-aws-ec2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>For more control, use a Virtual Private Server (VPS):</p>
+<ul>
+<li><strong>Steps:</strong>
+<ol>
+<li>Sign up for DigitalOcean or AWS.</li>
+<li>Launch a droplet/instance (e.g., Ubuntu server).</li>
+<li>SSH into the server and install Node.js, MongoDB (optional if using Atlas), and Git.</li>
+<li>Clone your repo, install dependencies (npm install), and start your app (use pm2 for process management: npm install -g pm2, then pm2 start server.js).</li>
+<li>Configure a reverse proxy with Nginx to serve your app and handle domains.</li>
+<li>Set up a domain (via a registrar like Namecheap) and point DNS to your server’s IP.</li>
+</ol>
+</li>
+<li><strong>Pros:</strong> Full control, scalable, no sleep time.</li>
+<li><strong>Cons:</strong> Requires server management, paid (starting ~$5/month on DigitalOcean).</li>
+</ul>
+<h3 id="option-3-shared-hosting-not-recommended"><strong>Option 3: Shared Hosting (Not Recommended)</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#option-3-shared-hosting-not-recommended" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Traditional shared hosting (e.g., Hostinger) is designed for static sites or PHP apps, not Node.js. You’d need a VPS plan to run a MERN stack app, making it similar to the VPS option above.</p>
+<hr/>
+<h3 id="3-deploy-your-sales-engagement-platform"><strong>3. Deploy Your Sales Engagement Platform</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-deploy-your-sales-engagement-platform" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Let’s assume you’re using Render for simplicity:</p>
+<ol>
+<li><strong>Push to GitHub:</strong>
+<ul>
+<li>Ensure your repo has both client (React) and server (Node.js) folders.</li>
+</ul>
+</li>
+<li><strong>Deploy Backend:</strong>
+<ul>
+<li>On Render, create a Web Service, point to the server folder, and configure as above.</li>
+</ul>
+</li>
+<li><strong>Deploy Frontend:</strong>
+<ul>
+<li>Create a Static Site, point to the client folder, and configure.</li>
+</ul>
+</li>
+<li><strong>Test:</strong>
+<ul>
+<li>Visit the frontend URL (e.g., <a href="https://your-frontend.onrender.com" class="external">https://your-frontend.onrender.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>) and ensure it connects to the backend (e.g., <a href="https://your-backend.onrender.com" class="external">https://your-backend.onrender.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>).</li>
+</ul>
+</li>
+<li><strong>Domain (Optional):</strong>
+<ul>
+<li>Add a custom domain via Render’s dashboard and update DNS records.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h3 id="4-specific-considerations-for-a-sales-engagement-platform"><strong>4. Specific Considerations for a Sales Engagement Platform</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-specific-considerations-for-a-sales-engagement-platform" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Since your app is a sales engagement platform, consider:</p>
+<ul>
+<li><strong>Scalability:</strong> Platforms like Render or AWS auto-scale, but monitor usage as your user base grows.</li>
+<li><strong>Security:</strong> Use HTTPS (most platforms provide free SSL), secure your MongoDB Atlas cluster, and sanitize user inputs.</li>
+<li><strong>Performance:</strong> Optimize API calls and use a CDN (e.g., Cloudflare) for faster static file delivery.</li>
+<li><strong>Analytics:</strong> Integrate tools like Google Analytics or Mixpanel via your React frontend.</li>
+</ul>
+<hr/>
+<h3 id="resources-for-more-info"><strong>Resources for More Info</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#resources-for-more-info" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Render Docs:</strong> <a href="https://render.com/docs/deploy-node-express-app" class="external">https://render.com/docs/deploy-node-express-app<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><strong>Vercel Docs:</strong> <a href="https://vercel.com/docs" class="external">https://vercel.com/docs<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+<li><strong>DigitalOcean Tutorials:</strong> Search for “Deploy MERN stack on DigitalOcean”</li>
+<li><strong>MongoDB Atlas:</strong> <a href="https://www.mongodb.com/cloud/atlas" class="external">https://www.mongodb.com/cloud/atlas<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ul>
+<p>If you specify your hosting provider or preferred setup (e.g., free vs. paid), I can tailor this further! What’s your next step?</p>
+<p>reference:</p></article><hr/><div class="page-footer"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" id="toc" class="collapsed" aria-controls="toc-content" aria-expanded="false"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class="collapsed"><ul class="overflow"><li class="depth-0"><a href="#1-prepare-your-mern-stack-application-for-deployment" data-for="1-prepare-your-mern-stack-application-for-deployment">1. Prepare Your MERN Stack Application for Deployment</a></li><li class="depth-0"><a href="#frontend-react" data-for="frontend-react">Frontend (React):</a></li><li class="depth-0"><a href="#backend-nodejsexpress" data-for="backend-nodejsexpress">Backend (Node.js/Express):</a></li><li class="depth-0"><a href="#database-mongodb" data-for="database-mongodb">Database (MongoDB):</a></li><li class="depth-0"><a href="#2-choose-a-hosting-platform" data-for="2-choose-a-hosting-platform">2. Choose a Hosting Platform</a></li><li class="depth-0"><a href="#option-1-all-in-one-hosting-eg-render-vercel-heroku" data-for="option-1-all-in-one-hosting-eg-render-vercel-heroku">Option 1: All-in-One Hosting (e.g., Render, Vercel, Heroku)</a></li><li class="depth-0"><a href="#option-2-vps-eg-digitalocean-aws-ec2" data-for="option-2-vps-eg-digitalocean-aws-ec2">Option 2: VPS (e.g., DigitalOcean, AWS EC2)</a></li><li class="depth-0"><a href="#option-3-shared-hosting-not-recommended" data-for="option-3-shared-hosting-not-recommended">Option 3: Shared Hosting (Not Recommended)</a></li><li class="depth-0"><a href="#3-deploy-your-sales-engagement-platform" data-for="3-deploy-your-sales-engagement-platform">3. Deploy Your Sales Engagement Platform</a></li><li class="depth-0"><a href="#4-specific-considerations-for-a-sales-engagement-platform" data-for="4-specific-considerations-for-a-sales-engagement-platform">4. Specific Considerations for a Sales Engagement Platform</a></li><li class="depth-0"><a href="#resources-for-more-info" data-for="resources-for-more-info">Resources for More Info</a></li></ul></div></div></div><footer class><p>Build with ♥ Sanjay V © 2025</p><ul><li><a href="https://github.com/sanjay2024">GitHub</a></li><li><a href="https://www.linkedin.com/in/sanjay2024/">Linkedin</a></li><li><a href="https://x.com/sanjayv22318195">Twitter</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script type="module">
+          let mermaidImport = undefined
+          document.addEventListener('nav', async () => {
+            if (document.querySelector("code.mermaid")) {
+              mermaidImport ||= await import('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs')
+              const mermaid = mermaidImport.default
+              const darkMode = document.documentElement.getAttribute('saved-theme') === 'dark'
+              mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'loose',
+                theme: darkMode ? 'dark' : 'default'
+              })
+
+              await mermaid.run({
+                querySelector: '.mermaid'
+              })
+            }
+          });
+          </script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/copy-tex.min.js" type="application/javascript"></script><script type="application/javascript">
+        const socket = new WebSocket('ws://localhost:3001')
+        // reload(true) ensures resources like images and scripts are fetched again in firefox
+        socket.addEventListener('message', () => document.location.reload(true))
+      </script><script src="../../postscript.js" type="module"></script></html>

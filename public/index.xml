@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+      <title>🧠 MY TECH NOTES</title>
+      <link>https://example.github.io</link>
+      <description>Last 10 notes on 🧠 MY TECH NOTES</description>
+      <generator>Quartz -- quartz.jzhao.xyz</generator>
+      <item>
+    <title>Helmet with node js</title>
+    <link>https://example.github.io/notes/2024/Helmet-with-node-js</link>
+    <guid>https://example.github.io/notes/2024/Helmet-with-node-js</guid>
+    <description>Helmet in node js is a set of middleware functions that sets the various http headers to increase the security to prevent from xss , clickjacking etc. ...</description>
+    <pubDate>Mon, 22 Sep 2025 00:00:00 GMT</pubDate>
+  </item><item>
+    <title>CPU Scheduling and process and thread</title>
+    <link>https://example.github.io/notes/2024/CPU-Scheduling-and-process-and-thread</link>
+    <guid>https://example.github.io/notes/2024/CPU-Scheduling-and-process-and-thread</guid>
+    <description>The rest of your content lives here. You can use Markdown here :) Process scheduling is an important activity done by the process manager to remove the process from the CPU and schedule the next process, the process removal and dispatch are based on multiple factors like process completion, priority, I/O requirement, etc.</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>Clock Synchronization 1</title>
+    <link>https://example.github.io/notes/2024/Clock-Synchronization-1</link>
+    <guid>https://example.github.io/notes/2024/Clock-Synchronization-1</guid>
+    <description>In distrubuted system , there will be no assurance that the timestamp of each server is same ,and it is not syncronized perfectly Clock synchronization is the process of ensuring that ...</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>Debouncing And Throttling</title>
+    <link>https://example.github.io/notes/2024/Debouncing-And-Throttling</link>
+    <guid>https://example.github.io/notes/2024/Debouncing-And-Throttling</guid>
+    <description>Debouncing is a programming practice used to ensure that time-consuming tasks do not fire so often, which can cause performance issues. In essence, it limits the execution of a function until a certain amount of idle time has passed without it being triggered again.</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>Docker Zero to Hero</title>
+    <link>https://example.github.io/notes/2024/Docker-Zero-to-Hero</link>
+    <guid>https://example.github.io/notes/2024/Docker-Zero-to-Hero</guid>
+    <description>What is Docker ? Docker is an open source platform that enables developers to build, deploy, run, update and manage containers—standardized, executable components that combine ...</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>Hosting the website</title>
+    <link>https://example.github.io/notes/2024/Hosting-the-website</link>
+    <guid>https://example.github.io/notes/2024/Hosting-the-website</guid>
+    <description>The rest of your content lives here. You can use Markdown here :) The rest of your content lives here. You can use Markdown here :) Hosting a MERN stack application involves deploying both the frontend (React) and backend (Node.js/Express with MongoDB) components, ensuring they communicate properly in a production environment.</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>How Browser works</title>
+    <link>https://example.github.io/notes/2024/How-Browser-works</link>
+    <guid>https://example.github.io/notes/2024/How-Browser-works</guid>
+    <description>...</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>Mastering Database Design</title>
+    <link>https://example.github.io/notes/2024/Mastering-Database-design</link>
+    <guid>https://example.github.io/notes/2024/Mastering-Database-design</guid>
+    <description>The rest of your content lives here. You can use Markdown here :) Mastering database design and schema design is a critical skill for developers and data engineers.</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>Message Broker ChatGPT Learnings</title>
+    <link>https://example.github.io/notes/2024/Message-Broker-ChatGPT-Learnings</link>
+    <guid>https://example.github.io/notes/2024/Message-Broker-ChatGPT-Learnings</guid>
+    <description>In RabbitMQ, workers and consumers are related but not necessarily the same thing. Here’s the distinction: Consumer: A consumer in RabbitMQ refers to any application or service that subscribes to a queue and processes the messages from that queue.</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item><item>
+    <title>Mongodb Connection and mongoose behind the scene</title>
+    <link>https://example.github.io/notes/2024/Mongodb-Connection-and-mongoose-behind-the-scene</link>
+    <guid>https://example.github.io/notes/2024/Mongodb-Connection-and-mongoose-behind-the-scene</guid>
+    <description>Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js, which simplifies how you interact with MongoDB. It provides an abstraction over MongoDB’s native driver to work with collections and documents in a more structured way.</description>
+    <pubDate>Sun, 21 Sep 2025 00:18:50 GMT</pubDate>
+  </item>
+    </channel>
+  </rss>

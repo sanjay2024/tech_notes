@@ -3106,8 +3106,9 @@ import path6 from "path";
 import { visit as visit7 } from "unist-util-visit";
 
 // quartz/components/Header.tsx
+import { jsx } from "preact/jsx-runtime";
 var Header = /* @__PURE__ */ __name(({ children }) => {
-  return children.length > 0 ? /* @__PURE__ */ React.createElement("header", null, children) : null;
+  return children.length > 0 ? /* @__PURE__ */ jsx("header", { children }) : null;
 }, "Header");
 Header.css = `
 header {
@@ -3132,8 +3133,9 @@ var clipboard_inline_default = "";
 var clipboard_default = "";
 
 // quartz/components/Body.tsx
+import { jsx as jsx2 } from "preact/jsx-runtime";
 var Body = /* @__PURE__ */ __name(({ children }) => {
-  return /* @__PURE__ */ React.createElement("div", { id: "quartz-body" }, children);
+  return /* @__PURE__ */ jsx2("div", { id: "quartz-body", children });
 }, "Body");
 Body.afterDOMLoaded = clipboard_inline_default;
 Body.css = clipboard_default;
@@ -3144,21 +3146,22 @@ import { render } from "preact-render-to-string";
 
 // quartz/util/resources.tsx
 import { randomUUID } from "crypto";
+import { jsx as jsx3 } from "preact/jsx-runtime";
 function JSResourceToScriptElement(resource, preserve) {
   const scriptType = resource.moduleType ?? "application/javascript";
   const spaPreserve = preserve ?? resource.spaPreserve;
   if (resource.contentType === "external") {
-    return /* @__PURE__ */ React.createElement("script", { key: resource.src, src: resource.src, type: scriptType, "spa-preserve": spaPreserve });
+    return /* @__PURE__ */ jsx3("script", { src: resource.src, type: scriptType, "spa-preserve": spaPreserve }, resource.src);
   } else {
     const content = resource.script;
-    return /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ jsx3(
       "script",
       {
-        key: randomUUID(),
         type: scriptType,
         "spa-preserve": spaPreserve,
         dangerouslySetInnerHTML: { __html: content }
-      }
+      },
+      randomUUID()
     );
   }
 }
@@ -3166,6 +3169,7 @@ __name(JSResourceToScriptElement, "JSResourceToScriptElement");
 
 // quartz/components/renderPage.tsx
 import { visit as visit6 } from "unist-util-visit";
+import { jsx as jsx4, jsxs } from "preact/jsx-runtime";
 var headerRegex = new RegExp(/h[1-6]/);
 function pageResources(baseDir, staticResources) {
   const contentIndexPath = joinSegments(baseDir, "static/contentIndex.json");
@@ -3310,17 +3314,35 @@ function renderPage(cfg, slug, componentData, components, pageResources2) {
   } = components;
   const Header2 = Header_default();
   const Body2 = Body_default();
-  const LeftComponent = /* @__PURE__ */ React.createElement("div", { class: "left sidebar" }, left.map((BodyComponent) => /* @__PURE__ */ React.createElement(BodyComponent, { ...componentData })));
-  const RightComponent = /* @__PURE__ */ React.createElement("div", { class: "right sidebar" }, right.map((BodyComponent) => /* @__PURE__ */ React.createElement(BodyComponent, { ...componentData })));
+  const LeftComponent = /* @__PURE__ */ jsx4("div", { class: "left sidebar", children: left.map((BodyComponent) => /* @__PURE__ */ jsx4(BodyComponent, { ...componentData })) });
+  const RightComponent = /* @__PURE__ */ jsx4("div", { class: "right sidebar", children: right.map((BodyComponent) => /* @__PURE__ */ jsx4(BodyComponent, { ...componentData })) });
   const lang = componentData.fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en";
-  const doc = /* @__PURE__ */ React.createElement("html", { lang }, /* @__PURE__ */ React.createElement(Head, { ...componentData }), /* @__PURE__ */ React.createElement("body", { "data-slug": slug }, /* @__PURE__ */ React.createElement("div", { id: "quartz-root", class: "page" }, /* @__PURE__ */ React.createElement(Body2, { ...componentData }, LeftComponent, /* @__PURE__ */ React.createElement("div", { class: "center" }, /* @__PURE__ */ React.createElement("div", { class: "page-header" }, /* @__PURE__ */ React.createElement(Header2, { ...componentData }), header.map((HeaderComponent) => /* @__PURE__ */ React.createElement(HeaderComponent, { ...componentData })), /* @__PURE__ */ React.createElement("div", { class: "popover-hint" }, beforeBody.map((BodyComponent) => /* @__PURE__ */ React.createElement(BodyComponent, { ...componentData })))), /* @__PURE__ */ React.createElement(Content2, { ...componentData }), /* @__PURE__ */ React.createElement("hr", null), /* @__PURE__ */ React.createElement("div", { class: "page-footer" }, afterBody.map((BodyComponent) => /* @__PURE__ */ React.createElement(BodyComponent, { ...componentData })))), RightComponent, /* @__PURE__ */ React.createElement(Footer, { ...componentData })))), pageResources2.js.filter((resource) => resource.loadTime === "afterDOMReady").map((res) => JSResourceToScriptElement(res)));
+  const doc = /* @__PURE__ */ jsxs("html", { lang, children: [
+    /* @__PURE__ */ jsx4(Head, { ...componentData }),
+    /* @__PURE__ */ jsx4("body", { "data-slug": slug, children: /* @__PURE__ */ jsx4("div", { id: "quartz-root", class: "page", children: /* @__PURE__ */ jsxs(Body2, { ...componentData, children: [
+      LeftComponent,
+      /* @__PURE__ */ jsxs("div", { class: "center", children: [
+        /* @__PURE__ */ jsxs("div", { class: "page-header", children: [
+          /* @__PURE__ */ jsx4(Header2, { ...componentData }),
+          header.map((HeaderComponent) => /* @__PURE__ */ jsx4(HeaderComponent, { ...componentData })),
+          /* @__PURE__ */ jsx4("div", { class: "popover-hint", children: beforeBody.map((BodyComponent) => /* @__PURE__ */ jsx4(BodyComponent, { ...componentData })) })
+        ] }),
+        /* @__PURE__ */ jsx4(Content2, { ...componentData }),
+        /* @__PURE__ */ jsx4("hr", {}),
+        /* @__PURE__ */ jsx4("div", { class: "page-footer", children: afterBody.map((BodyComponent) => /* @__PURE__ */ jsx4(BodyComponent, { ...componentData })) })
+      ] }),
+      RightComponent,
+      /* @__PURE__ */ jsx4(Footer, { ...componentData })
+    ] }) }) }),
+    pageResources2.js.filter((resource) => resource.loadTime === "afterDOMReady").map((res) => JSResourceToScriptElement(res))
+  ] });
   return "<!DOCTYPE html>\n" + render(doc);
 }
 __name(renderPage, "renderPage");
 
 // quartz/util/jsx.tsx
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
-import { Fragment, jsx, jsxs } from "preact/jsx-runtime";
+import { Fragment, jsx as jsx5, jsxs as jsxs2 } from "preact/jsx-runtime";
 
 // quartz/util/trace.ts
 import chalk2 from "chalk";
@@ -3357,15 +3379,16 @@ function trace(msg, err) {
 __name(trace, "trace");
 
 // quartz/util/jsx.tsx
+import { jsx as jsx6 } from "preact/jsx-runtime";
 var customComponents = {
-  table: /* @__PURE__ */ __name((props) => /* @__PURE__ */ React.createElement("div", { class: "table-container" }, /* @__PURE__ */ React.createElement("table", { ...props })), "table")
+  table: /* @__PURE__ */ __name((props) => /* @__PURE__ */ jsx6("div", { class: "table-container", children: /* @__PURE__ */ jsx6("table", { ...props }) }), "table")
 };
 function htmlToJsx(fp, tree) {
   try {
     return toJsxRuntime(tree, {
       Fragment,
-      jsx,
-      jsxs,
+      jsx: jsx5,
+      jsxs: jsxs2,
       elementAttributeNameCase: "html",
       components: customComponents
     });
@@ -3376,11 +3399,12 @@ function htmlToJsx(fp, tree) {
 __name(htmlToJsx, "htmlToJsx");
 
 // quartz/components/pages/Content.tsx
+import { jsx as jsx7 } from "preact/jsx-runtime";
 var Content = /* @__PURE__ */ __name(({ fileData, tree }) => {
   const content = htmlToJsx(fileData.filePath, tree);
   const classes = fileData.frontmatter?.cssclasses ?? [];
   const classString = ["popover-hint", ...classes].join(" ");
-  return /* @__PURE__ */ React.createElement("article", { class: classString }, content);
+  return /* @__PURE__ */ jsx7("article", { class: classString, children: content });
 }, "Content");
 var Content_default = /* @__PURE__ */ __name(() => Content, "default");
 
@@ -3388,6 +3412,7 @@ var Content_default = /* @__PURE__ */ __name(() => Content, "default");
 var listPage_default = "";
 
 // quartz/components/Date.tsx
+import { Fragment as Fragment2, jsx as jsx8 } from "preact/jsx-runtime";
 function getDate(cfg, data) {
   if (!cfg.defaultDateType) {
     throw new Error(
@@ -3406,11 +3431,12 @@ function formatDate(d, locale = "en-US") {
 }
 __name(formatDate, "formatDate");
 function Date2({ date, locale }) {
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, formatDate(date, locale));
+  return /* @__PURE__ */ jsx8(Fragment2, { children: formatDate(date, locale) });
 }
 __name(Date2, "Date");
 
 // quartz/components/PageList.tsx
+import { jsx as jsx9, jsxs as jsxs3 } from "preact/jsx-runtime";
 function byDateAndAlphabetical(cfg) {
   return (f1, f2) => {
     if (f1.dates && f2.dates) {
@@ -3432,11 +3458,14 @@ var PageList = /* @__PURE__ */ __name(({ cfg, fileData, allFiles, limit, sort })
   if (limit) {
     list = list.slice(0, limit);
   }
-  return /* @__PURE__ */ React.createElement("ul", { class: "section-ul" }, list.map((page) => {
+  return /* @__PURE__ */ jsx9("ul", { class: "section-ul", children: list.map((page) => {
     const title = page.frontmatter?.title;
     const tags = page.frontmatter?.tags ?? [];
-    return /* @__PURE__ */ React.createElement("li", { class: "section-li" }, /* @__PURE__ */ React.createElement("div", { class: "section" }, /* @__PURE__ */ React.createElement("div", null, page.dates && /* @__PURE__ */ React.createElement("p", { class: "meta" }, /* @__PURE__ */ React.createElement(Date2, { date: getDate(cfg, page), locale: cfg.locale }))), /* @__PURE__ */ React.createElement("div", { class: "desc" }, /* @__PURE__ */ React.createElement("h3", null, /* @__PURE__ */ React.createElement("a", { href: resolveRelative(fileData.slug, page.slug), class: "internal" }, title)))));
-  }));
+    return /* @__PURE__ */ jsx9("li", { class: "section-li", children: /* @__PURE__ */ jsxs3("div", { class: "section", children: [
+      /* @__PURE__ */ jsx9("div", { children: page.dates && /* @__PURE__ */ jsx9("p", { class: "meta", children: /* @__PURE__ */ jsx9(Date2, { date: getDate(cfg, page), locale: cfg.locale }) }) }),
+      /* @__PURE__ */ jsx9("div", { class: "desc", children: /* @__PURE__ */ jsx9("h3", { children: /* @__PURE__ */ jsx9("a", { href: resolveRelative(fileData.slug, page.slug), class: "internal", children: title }) }) })
+    ] }) });
+  }) });
 }, "PageList");
 PageList.css = `
 .section h3 {
@@ -3449,6 +3478,7 @@ PageList.css = `
 `;
 
 // quartz/components/pages/TagContent.tsx
+import { Fragment as Fragment3, jsx as jsx10, jsxs as jsxs4 } from "preact/jsx-runtime";
 var defaultOptions9 = {
   numPages: 10
 };
@@ -3477,26 +3507,49 @@ var TagContent_default = /* @__PURE__ */ __name((opts) => {
       for (const tag2 of tags) {
         tagItemMap.set(tag2, allPagesWithTag(tag2));
       }
-      return /* @__PURE__ */ React.createElement("div", { class: classes }, /* @__PURE__ */ React.createElement("article", null, /* @__PURE__ */ React.createElement("p", null, content)), /* @__PURE__ */ React.createElement("p", null, i18n(cfg.locale).pages.tagContent.totalTags({ count: tags.length })), /* @__PURE__ */ React.createElement("div", null, tags.map((tag2) => {
-        const pages = tagItemMap.get(tag2);
-        const listProps = {
-          ...props,
-          allFiles: pages
-        };
-        const contentPage = allFiles.filter((file) => file.slug === `tags/${tag2}`).at(0);
-        const root = contentPage?.htmlAst;
-        const content2 = !root || root?.children.length === 0 ? contentPage?.description : htmlToJsx(contentPage.filePath, root);
-        return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", null, /* @__PURE__ */ React.createElement("a", { class: "internal tag-link", href: `../tags/${tag2}` }, tag2)), content2 && /* @__PURE__ */ React.createElement("p", null, content2), /* @__PURE__ */ React.createElement("div", { class: "page-listing" }, /* @__PURE__ */ React.createElement("p", null, i18n(cfg.locale).pages.tagContent.itemsUnderTag({ count: pages.length }), pages.length > options2.numPages && /* @__PURE__ */ React.createElement(React.Fragment, null, " ", /* @__PURE__ */ React.createElement("span", null, i18n(cfg.locale).pages.tagContent.showingFirst({
-          count: options2.numPages
-        })))), /* @__PURE__ */ React.createElement(PageList, { limit: options2.numPages, ...listProps, sort: opts?.sort })));
-      })));
+      return /* @__PURE__ */ jsxs4("div", { class: classes, children: [
+        /* @__PURE__ */ jsx10("article", { children: /* @__PURE__ */ jsx10("p", { children: content }) }),
+        /* @__PURE__ */ jsx10("p", { children: i18n(cfg.locale).pages.tagContent.totalTags({ count: tags.length }) }),
+        /* @__PURE__ */ jsx10("div", { children: tags.map((tag2) => {
+          const pages = tagItemMap.get(tag2);
+          const listProps = {
+            ...props,
+            allFiles: pages
+          };
+          const contentPage = allFiles.filter((file) => file.slug === `tags/${tag2}`).at(0);
+          const root = contentPage?.htmlAst;
+          const content2 = !root || root?.children.length === 0 ? contentPage?.description : htmlToJsx(contentPage.filePath, root);
+          return /* @__PURE__ */ jsxs4("div", { children: [
+            /* @__PURE__ */ jsx10("h2", { children: /* @__PURE__ */ jsx10("a", { class: "internal tag-link", href: `../tags/${tag2}`, children: tag2 }) }),
+            content2 && /* @__PURE__ */ jsx10("p", { children: content2 }),
+            /* @__PURE__ */ jsxs4("div", { class: "page-listing", children: [
+              /* @__PURE__ */ jsxs4("p", { children: [
+                i18n(cfg.locale).pages.tagContent.itemsUnderTag({ count: pages.length }),
+                pages.length > options2.numPages && /* @__PURE__ */ jsxs4(Fragment3, { children: [
+                  " ",
+                  /* @__PURE__ */ jsx10("span", { children: i18n(cfg.locale).pages.tagContent.showingFirst({
+                    count: options2.numPages
+                  }) })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsx10(PageList, { limit: options2.numPages, ...listProps, sort: opts?.sort })
+            ] })
+          ] });
+        }) })
+      ] });
     } else {
       const pages = allPagesWithTag(tag);
       const listProps = {
         ...props,
         allFiles: pages
       };
-      return /* @__PURE__ */ React.createElement("div", { class: classes }, /* @__PURE__ */ React.createElement("article", null, content), /* @__PURE__ */ React.createElement("div", { class: "page-listing" }, /* @__PURE__ */ React.createElement("p", null, i18n(cfg.locale).pages.tagContent.itemsUnderTag({ count: pages.length })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(PageList, { ...listProps }))));
+      return /* @__PURE__ */ jsxs4("div", { class: classes, children: [
+        /* @__PURE__ */ jsx10("article", { children: content }),
+        /* @__PURE__ */ jsxs4("div", { class: "page-listing", children: [
+          /* @__PURE__ */ jsx10("p", { children: i18n(cfg.locale).pages.tagContent.itemsUnderTag({ count: pages.length }) }),
+          /* @__PURE__ */ jsx10("div", { children: /* @__PURE__ */ jsx10(PageList, { ...listProps }) })
+        ] })
+      ] });
     }
   }, "TagContent");
   TagContent.css = listPage_default + PageList.css;
@@ -3505,6 +3558,7 @@ var TagContent_default = /* @__PURE__ */ __name((opts) => {
 
 // quartz/components/pages/FolderContent.tsx
 import path4 from "path";
+import { jsx as jsx11, jsxs as jsxs5 } from "preact/jsx-runtime";
 var defaultOptions10 = {
   showFolderCount: true,
   showSubfolders: true
@@ -3557,27 +3611,39 @@ var FolderContent_default = /* @__PURE__ */ __name((opts) => {
       allFiles: allPagesInFolder
     };
     const content = tree.children.length === 0 ? fileData.description : htmlToJsx(fileData.filePath, tree);
-    return /* @__PURE__ */ React.createElement("div", { class: classes }, /* @__PURE__ */ React.createElement("article", null, content), /* @__PURE__ */ React.createElement("div", { class: "page-listing" }, options2.showFolderCount && /* @__PURE__ */ React.createElement("p", null, i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
-      count: allPagesInFolder.length
-    })), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(PageList, { ...listProps }))));
+    return /* @__PURE__ */ jsxs5("div", { class: classes, children: [
+      /* @__PURE__ */ jsx11("article", { children: content }),
+      /* @__PURE__ */ jsxs5("div", { class: "page-listing", children: [
+        options2.showFolderCount && /* @__PURE__ */ jsx11("p", { children: i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
+          count: allPagesInFolder.length
+        }) }),
+        /* @__PURE__ */ jsx11("div", { children: /* @__PURE__ */ jsx11(PageList, { ...listProps }) })
+      ] })
+    ] });
   }, "FolderContent");
   FolderContent.css = listPage_default + PageList.css;
   return FolderContent;
 }, "default");
 
 // quartz/components/pages/404.tsx
+import { jsx as jsx12, jsxs as jsxs6 } from "preact/jsx-runtime";
 var NotFound = /* @__PURE__ */ __name(({ cfg }) => {
   const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`);
   const baseDir = url.pathname;
-  return /* @__PURE__ */ React.createElement("article", { class: "popover-hint" }, /* @__PURE__ */ React.createElement("h1", null, "404"), /* @__PURE__ */ React.createElement("p", null, i18n(cfg.locale).pages.error.notFound), /* @__PURE__ */ React.createElement("a", { href: baseDir }, i18n(cfg.locale).pages.error.home));
+  return /* @__PURE__ */ jsxs6("article", { class: "popover-hint", children: [
+    /* @__PURE__ */ jsx12("h1", { children: "404" }),
+    /* @__PURE__ */ jsx12("p", { children: i18n(cfg.locale).pages.error.notFound }),
+    /* @__PURE__ */ jsx12("a", { href: baseDir, children: i18n(cfg.locale).pages.error.home })
+  ] });
 }, "NotFound");
 var __default = /* @__PURE__ */ __name(() => NotFound, "default");
 
 // quartz/components/ArticleTitle.tsx
+import { jsx as jsx13 } from "preact/jsx-runtime";
 var ArticleTitle = /* @__PURE__ */ __name(({ fileData, displayClass }) => {
   const title = fileData.frontmatter?.title;
   if (title) {
-    return /* @__PURE__ */ React.createElement("h1", { class: classNames(displayClass, "article-title") }, title);
+    return /* @__PURE__ */ jsx13("h1", { class: classNames(displayClass, "article-title"), children: title });
   } else {
     return null;
   }
@@ -3596,40 +3662,48 @@ var darkmode_inline_default = "";
 var darkmode_default = "";
 
 // quartz/components/Darkmode.tsx
+import { jsx as jsx14, jsxs as jsxs7 } from "preact/jsx-runtime";
 var Darkmode = /* @__PURE__ */ __name(({ displayClass, cfg }) => {
-  return /* @__PURE__ */ React.createElement("button", { class: classNames(displayClass, "darkmode"), id: "darkmode" }, /* @__PURE__ */ React.createElement(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      xmlnsXlink: "http://www.w3.org/1999/xlink",
-      version: "1.1",
-      id: "dayIcon",
-      x: "0px",
-      y: "0px",
-      viewBox: "0 0 35 35",
-      style: "enable-background:new 0 0 35 35",
-      xmlSpace: "preserve",
-      "aria-label": i18n(cfg.locale).components.themeToggle.darkMode
-    },
-    /* @__PURE__ */ React.createElement("title", null, i18n(cfg.locale).components.themeToggle.darkMode),
-    /* @__PURE__ */ React.createElement("path", { d: "M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" })
-  ), /* @__PURE__ */ React.createElement(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      xmlnsXlink: "http://www.w3.org/1999/xlink",
-      version: "1.1",
-      id: "nightIcon",
-      x: "0px",
-      y: "0px",
-      viewBox: "0 0 100 100",
-      style: "enable-background:new 0 0 100 100",
-      xmlSpace: "preserve",
-      "aria-label": i18n(cfg.locale).components.themeToggle.lightMode
-    },
-    /* @__PURE__ */ React.createElement("title", null, i18n(cfg.locale).components.themeToggle.lightMode),
-    /* @__PURE__ */ React.createElement("path", { d: "M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" })
-  ));
+  return /* @__PURE__ */ jsxs7("button", { class: classNames(displayClass, "darkmode"), id: "darkmode", children: [
+    /* @__PURE__ */ jsxs7(
+      "svg",
+      {
+        xmlns: "http://www.w3.org/2000/svg",
+        xmlnsXlink: "http://www.w3.org/1999/xlink",
+        version: "1.1",
+        id: "dayIcon",
+        x: "0px",
+        y: "0px",
+        viewBox: "0 0 35 35",
+        style: "enable-background:new 0 0 35 35",
+        xmlSpace: "preserve",
+        "aria-label": i18n(cfg.locale).components.themeToggle.darkMode,
+        children: [
+          /* @__PURE__ */ jsx14("title", { children: i18n(cfg.locale).components.themeToggle.darkMode }),
+          /* @__PURE__ */ jsx14("path", { d: "M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs7(
+      "svg",
+      {
+        xmlns: "http://www.w3.org/2000/svg",
+        xmlnsXlink: "http://www.w3.org/1999/xlink",
+        version: "1.1",
+        id: "nightIcon",
+        x: "0px",
+        y: "0px",
+        viewBox: "0 0 100 100",
+        style: "enable-background:new 0 0 100 100",
+        xmlSpace: "preserve",
+        "aria-label": i18n(cfg.locale).components.themeToggle.lightMode,
+        children: [
+          /* @__PURE__ */ jsx14("title", { children: i18n(cfg.locale).components.themeToggle.lightMode }),
+          /* @__PURE__ */ jsx14("path", { d: "M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" })
+        ]
+      }
+    )
+  ] });
 }, "Darkmode");
 Darkmode.beforeDOMLoaded = darkmode_inline_default;
 Darkmode.css = darkmode_default;
@@ -3678,6 +3752,7 @@ ${stylesheet.join("\n\n")}
 __name(joinStyles, "joinStyles");
 
 // quartz/components/Head.tsx
+import { Fragment as Fragment4, jsx as jsx15, jsxs as jsxs8 } from "preact/jsx-runtime";
 var Head_default = /* @__PURE__ */ __name(() => {
   const Head = /* @__PURE__ */ __name(({ cfg, fileData, externalResources }) => {
     const titleSuffix = cfg.pageTitleSuffix ?? "";
@@ -3687,30 +3762,38 @@ var Head_default = /* @__PURE__ */ __name(() => {
     const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`);
     const path12 = url.pathname;
     const baseDir = fileData.slug === "404" ? path12 : pathToRoot(fileData.slug);
-    const iconPath = joinSegments(baseDir, "static/icon.jpeg");
-    const ogImagePath = `https://${cfg.baseUrl}/static/icon.jpeg`;
-    return /* @__PURE__ */ React.createElement("head", null, /* @__PURE__ */ React.createElement("title", null, title), /* @__PURE__ */ React.createElement("meta", { charSet: "utf-8" }), cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("link", { rel: "preconnect", href: "https://fonts.googleapis.com" }), /* @__PURE__ */ React.createElement("link", { rel: "preconnect", href: "https://fonts.gstatic.com" }), /* @__PURE__ */ React.createElement("link", { rel: "stylesheet", href: googleFontHref(cfg.theme) })), /* @__PURE__ */ React.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1.0" }), /* @__PURE__ */ React.createElement("meta", { property: "og:title", content: title }), /* @__PURE__ */ React.createElement("meta", { property: "og:description", content: description }), cfg.baseUrl && /* @__PURE__ */ React.createElement("meta", { property: "og:image", content: ogImagePath }), /* @__PURE__ */ React.createElement("meta", { property: "og:width", content: "1200" }), /* @__PURE__ */ React.createElement("meta", { property: "og:height", content: "675" }), /* @__PURE__ */ React.createElement("link", { rel: "icon", href: iconPath }), /* @__PURE__ */ React.createElement("script", { async: true, src: "https://www.googletagmanager.com/gtag/js?id=G-6D6PENTGR9" }), /* @__PURE__ */ React.createElement(
-      "script",
-      {
-        dangerouslySetInnerHTML: {
-          __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6D6PENTGR9');
-    `
-        }
-      }
-    ), /* @__PURE__ */ React.createElement("meta", { name: "description", content: description }), /* @__PURE__ */ React.createElement("meta", { name: "generator", content: "Quartz" }), css.map((href) => /* @__PURE__ */ React.createElement("link", { key: href, href, rel: "stylesheet", type: "text/css", "spa-preserve": true })), js.filter((resource) => resource.loadTime === "beforeDOMReady").map((res) => JSResourceToScriptElement(res, true)));
+    const iconPath = joinSegments(baseDir, "static/icon.jpg");
+    const ogImagePath = `https://${cfg.baseUrl}/static/icon.jpg`;
+    return /* @__PURE__ */ jsxs8("head", { children: [
+      /* @__PURE__ */ jsx15("title", { children: title }),
+      /* @__PURE__ */ jsx15("meta", { charSet: "utf-8" }),
+      cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && /* @__PURE__ */ jsxs8(Fragment4, { children: [
+        /* @__PURE__ */ jsx15("link", { rel: "preconnect", href: "https://fonts.googleapis.com" }),
+        /* @__PURE__ */ jsx15("link", { rel: "preconnect", href: "https://fonts.gstatic.com" }),
+        /* @__PURE__ */ jsx15("link", { rel: "stylesheet", href: googleFontHref(cfg.theme) })
+      ] }),
+      /* @__PURE__ */ jsx15("meta", { name: "viewport", content: "width=device-width, initial-scale=1.0" }),
+      /* @__PURE__ */ jsx15("meta", { property: "og:title", content: title }),
+      /* @__PURE__ */ jsx15("meta", { property: "og:description", content: description }),
+      cfg.baseUrl && /* @__PURE__ */ jsx15("meta", { property: "og:image", content: ogImagePath }),
+      /* @__PURE__ */ jsx15("meta", { property: "og:width", content: "1200" }),
+      /* @__PURE__ */ jsx15("meta", { property: "og:height", content: "675" }),
+      /* @__PURE__ */ jsx15("link", { rel: "icon", href: iconPath }),
+      /* @__PURE__ */ jsx15("meta", { name: "description", content: description }),
+      /* @__PURE__ */ jsx15("meta", { name: "generator", content: "Quartz" }),
+      css.map((href) => /* @__PURE__ */ jsx15("link", { href, rel: "stylesheet", type: "text/css", "spa-preserve": true }, href)),
+      js.filter((resource) => resource.loadTime === "beforeDOMReady").map((res) => JSResourceToScriptElement(res, true))
+    ] });
   }, "Head");
   return Head;
 }, "default");
 
 // quartz/components/PageTitle.tsx
+import { jsx as jsx16 } from "preact/jsx-runtime";
 var PageTitle = /* @__PURE__ */ __name(({ fileData, cfg, displayClass }) => {
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title;
   const baseDir = pathToRoot(fileData.slug);
-  return /* @__PURE__ */ React.createElement("h2", { class: classNames(displayClass, "page-title") }, /* @__PURE__ */ React.createElement("a", { href: baseDir }, title));
+  return /* @__PURE__ */ jsx16("h2", { class: classNames(displayClass, "page-title"), children: /* @__PURE__ */ jsx16("a", { href: baseDir, children: title }) });
 }, "PageTitle");
 PageTitle.css = `
 .page-title {
@@ -3726,6 +3809,7 @@ import readingTime from "reading-time";
 var contentMeta_default = "";
 
 // quartz/components/ContentMeta.tsx
+import { jsx as jsx17 } from "preact/jsx-runtime";
 var defaultOptions11 = {
   showReadingTime: true,
   showComma: true
@@ -3746,8 +3830,8 @@ var ContentMeta_default = /* @__PURE__ */ __name((opts) => {
         });
         segments.push(displayedTime);
       }
-      const segmentsElements = segments.map((segment) => /* @__PURE__ */ React.createElement("span", null, segment));
-      return /* @__PURE__ */ React.createElement("p", { "show-comma": options2.showComma, class: classNames(displayClass, "content-meta") }, segmentsElements);
+      const segmentsElements = segments.map((segment) => /* @__PURE__ */ jsx17("span", { children: segment }));
+      return /* @__PURE__ */ jsx17("p", { "show-comma": options2.showComma, class: classNames(displayClass, "content-meta"), children: segmentsElements });
     } else {
       return null;
     }
@@ -3758,8 +3842,9 @@ var ContentMeta_default = /* @__PURE__ */ __name((opts) => {
 }, "default");
 
 // quartz/components/Spacer.tsx
+import { jsx as jsx18 } from "preact/jsx-runtime";
 function Spacer({ displayClass }) {
-  return /* @__PURE__ */ React.createElement("div", { class: classNames(displayClass, "spacer") });
+  return /* @__PURE__ */ jsx18("div", { class: classNames(displayClass, "spacer") });
 }
 __name(Spacer, "Spacer");
 var Spacer_default = /* @__PURE__ */ __name(() => Spacer, "default");
@@ -3774,6 +3859,7 @@ var toc_default = "";
 var toc_inline_default = "";
 
 // quartz/components/TableOfContents.tsx
+import { jsx as jsx19, jsxs as jsxs9 } from "preact/jsx-runtime";
 var defaultOptions12 = {
   layout: "modern"
 };
@@ -3785,33 +3871,38 @@ var TableOfContents2 = /* @__PURE__ */ __name(({
   if (!fileData.toc) {
     return null;
   }
-  return /* @__PURE__ */ React.createElement("div", { class: classNames(displayClass, "toc") }, /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      type: "button",
-      id: "toc",
-      class: fileData.collapseToc ? "collapsed" : "",
-      "aria-controls": "toc-content",
-      "aria-expanded": !fileData.collapseToc
-    },
-    /* @__PURE__ */ React.createElement("h3", null, i18n(cfg.locale).components.tableOfContents.title),
-    /* @__PURE__ */ React.createElement(
-      "svg",
+  return /* @__PURE__ */ jsxs9("div", { class: classNames(displayClass, "toc"), children: [
+    /* @__PURE__ */ jsxs9(
+      "button",
       {
-        xmlns: "http://www.w3.org/2000/svg",
-        width: "24",
-        height: "24",
-        viewBox: "0 0 24 24",
-        fill: "none",
-        stroke: "currentColor",
-        "stroke-width": "2",
-        "stroke-linecap": "round",
-        "stroke-linejoin": "round",
-        class: "fold"
-      },
-      /* @__PURE__ */ React.createElement("polyline", { points: "6 9 12 15 18 9" })
-    )
-  ), /* @__PURE__ */ React.createElement("div", { id: "toc-content", class: fileData.collapseToc ? "collapsed" : "" }, /* @__PURE__ */ React.createElement("ul", { class: "overflow" }, fileData.toc.map((tocEntry) => /* @__PURE__ */ React.createElement("li", { key: tocEntry.slug, class: `depth-${tocEntry.depth}` }, /* @__PURE__ */ React.createElement("a", { href: `#${tocEntry.slug}`, "data-for": tocEntry.slug }, tocEntry.text))))));
+        type: "button",
+        id: "toc",
+        class: fileData.collapseToc ? "collapsed" : "",
+        "aria-controls": "toc-content",
+        "aria-expanded": !fileData.collapseToc,
+        children: [
+          /* @__PURE__ */ jsx19("h3", { children: i18n(cfg.locale).components.tableOfContents.title }),
+          /* @__PURE__ */ jsx19(
+            "svg",
+            {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "24",
+              height: "24",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              "stroke-width": "2",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              class: "fold",
+              children: /* @__PURE__ */ jsx19("polyline", { points: "6 9 12 15 18 9" })
+            }
+          )
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsx19("div", { id: "toc-content", class: fileData.collapseToc ? "collapsed" : "", children: /* @__PURE__ */ jsx19("ul", { class: "overflow", children: fileData.toc.map((tocEntry) => /* @__PURE__ */ jsx19("li", { class: `depth-${tocEntry.depth}`, children: /* @__PURE__ */ jsx19("a", { href: `#${tocEntry.slug}`, "data-for": tocEntry.slug, children: tocEntry.text }) }, tocEntry.slug)) }) })
+  ] });
 }, "TableOfContents");
 TableOfContents2.css = toc_default;
 TableOfContents2.afterDOMLoaded = toc_inline_default;
@@ -3819,7 +3910,10 @@ var LegacyTableOfContents = /* @__PURE__ */ __name(({ fileData, cfg }) => {
   if (!fileData.toc) {
     return null;
   }
-  return /* @__PURE__ */ React.createElement("details", { id: "toc", open: !fileData.collapseToc }, /* @__PURE__ */ React.createElement("summary", null, /* @__PURE__ */ React.createElement("h3", null, i18n(cfg.locale).components.tableOfContents.title)), /* @__PURE__ */ React.createElement("ul", null, fileData.toc.map((tocEntry) => /* @__PURE__ */ React.createElement("li", { key: tocEntry.slug, class: `depth-${tocEntry.depth}` }, /* @__PURE__ */ React.createElement("a", { href: `#${tocEntry.slug}`, "data-for": tocEntry.slug }, tocEntry.text)))));
+  return /* @__PURE__ */ jsxs9("details", { id: "toc", open: !fileData.collapseToc, children: [
+    /* @__PURE__ */ jsx19("summary", { children: /* @__PURE__ */ jsx19("h3", { children: i18n(cfg.locale).components.tableOfContents.title }) }),
+    /* @__PURE__ */ jsx19("ul", { children: fileData.toc.map((tocEntry) => /* @__PURE__ */ jsx19("li", { class: `depth-${tocEntry.depth}`, children: /* @__PURE__ */ jsx19("a", { href: `#${tocEntry.slug}`, "data-for": tocEntry.slug, children: tocEntry.text }) }, tocEntry.slug)) })
+  ] });
 }, "LegacyTableOfContents");
 LegacyTableOfContents.css = legacyToc_default;
 var TableOfContents_default = /* @__PURE__ */ __name((opts) => {
@@ -3827,15 +3921,22 @@ var TableOfContents_default = /* @__PURE__ */ __name((opts) => {
   return layout === "modern" ? TableOfContents2 : LegacyTableOfContents;
 }, "default");
 
+// quartz/components/ExplorerNode.tsx
+import { Fragment as Fragment5, jsx as jsx20, jsxs as jsxs10 } from "preact/jsx-runtime";
+
+// quartz/components/Explorer.tsx
+import { jsx as jsx21, jsxs as jsxs11 } from "preact/jsx-runtime";
+
 // quartz/components/TagList.tsx
+import { jsx as jsx22 } from "preact/jsx-runtime";
 var TagList = /* @__PURE__ */ __name(({ fileData, displayClass }) => {
   const tags = fileData.frontmatter?.tags;
   const baseDir = pathToRoot(fileData.slug);
   if (tags && tags.length > 0) {
-    return /* @__PURE__ */ React.createElement("ul", { class: classNames(displayClass, "tags") }, tags.map((tag) => {
+    return /* @__PURE__ */ jsx22("ul", { class: classNames(displayClass, "tags"), children: tags.map((tag) => {
       const linkDest = baseDir + `/tags/${slugTag(tag)}`;
-      return /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("a", { href: linkDest, class: "internal tag-link" }, tag));
-    }));
+      return /* @__PURE__ */ jsx22("li", { children: /* @__PURE__ */ jsx22("a", { href: linkDest, class: "internal tag-link", children: tag }) });
+    }) });
   } else {
     return null;
   }
@@ -3878,6 +3979,7 @@ var graph_inline_default = "";
 var graph_default = "";
 
 // quartz/components/Graph.tsx
+import { jsx as jsx23, jsxs as jsxs12 } from "preact/jsx-runtime";
 var defaultOptions13 = {
   localGraph: {
     drag: true,
@@ -3912,25 +4014,32 @@ var Graph_default = /* @__PURE__ */ __name((opts) => {
   const Graph = /* @__PURE__ */ __name(({ displayClass, cfg }) => {
     const localGraph = { ...defaultOptions13.localGraph, ...opts?.localGraph };
     const globalGraph = { ...defaultOptions13.globalGraph, ...opts?.globalGraph };
-    return /* @__PURE__ */ React.createElement("div", { class: classNames(displayClass, "graph") }, /* @__PURE__ */ React.createElement("h3", null, i18n(cfg.locale).components.graph.title), /* @__PURE__ */ React.createElement("div", { class: "graph-outer" }, /* @__PURE__ */ React.createElement("div", { id: "graph-container", "data-cfg": JSON.stringify(localGraph) }), /* @__PURE__ */ React.createElement("button", { id: "global-graph-icon", "aria-label": "Global Graph" }, /* @__PURE__ */ React.createElement(
-      "svg",
-      {
-        version: "1.1",
-        xmlns: "http://www.w3.org/2000/svg",
-        xmlnsXlink: "http://www.w3.org/1999/xlink",
-        x: "0px",
-        y: "0px",
-        viewBox: "0 0 55 55",
-        fill: "currentColor",
-        xmlSpace: "preserve"
-      },
-      /* @__PURE__ */ React.createElement(
-        "path",
-        {
-          d: "M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17\n                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4\n                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562\n                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829\n                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91\n                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4\n                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665\n                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2\n                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4\n                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2\n                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"
-        }
-      )
-    ))), /* @__PURE__ */ React.createElement("div", { id: "global-graph-outer" }, /* @__PURE__ */ React.createElement("div", { id: "global-graph-container", "data-cfg": JSON.stringify(globalGraph) })));
+    return /* @__PURE__ */ jsxs12("div", { class: classNames(displayClass, "graph"), children: [
+      /* @__PURE__ */ jsx23("h3", { children: i18n(cfg.locale).components.graph.title }),
+      /* @__PURE__ */ jsxs12("div", { class: "graph-outer", children: [
+        /* @__PURE__ */ jsx23("div", { id: "graph-container", "data-cfg": JSON.stringify(localGraph) }),
+        /* @__PURE__ */ jsx23("button", { id: "global-graph-icon", "aria-label": "Global Graph", children: /* @__PURE__ */ jsx23(
+          "svg",
+          {
+            version: "1.1",
+            xmlns: "http://www.w3.org/2000/svg",
+            xmlnsXlink: "http://www.w3.org/1999/xlink",
+            x: "0px",
+            y: "0px",
+            viewBox: "0 0 55 55",
+            fill: "currentColor",
+            xmlSpace: "preserve",
+            children: /* @__PURE__ */ jsx23(
+              "path",
+              {
+                d: "M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17\n                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4\n                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562\n                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829\n                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91\n                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4\n                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665\n                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2\n                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4\n                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2\n                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"
+              }
+            )
+          }
+        ) })
+      ] }),
+      /* @__PURE__ */ jsx23("div", { id: "global-graph-outer", children: /* @__PURE__ */ jsx23("div", { id: "global-graph-container", "data-cfg": JSON.stringify(globalGraph) }) })
+    ] });
   }, "Graph");
   Graph.css = graph_default;
   Graph.afterDOMLoaded = graph_inline_default;
@@ -3941,6 +4050,7 @@ var Graph_default = /* @__PURE__ */ __name((opts) => {
 var backlinks_default = "";
 
 // quartz/components/Backlinks.tsx
+import { jsx as jsx24, jsxs as jsxs13 } from "preact/jsx-runtime";
 var Backlinks = /* @__PURE__ */ __name(({
   fileData,
   allFiles,
@@ -3949,7 +4059,10 @@ var Backlinks = /* @__PURE__ */ __name(({
 }) => {
   const slug = simplifySlug(fileData.slug);
   const backlinkFiles = allFiles.filter((file) => file.links?.includes(slug));
-  return /* @__PURE__ */ React.createElement("div", { class: classNames(displayClass, "backlinks") }, /* @__PURE__ */ React.createElement("h3", null, i18n(cfg.locale).components.backlinks.title), /* @__PURE__ */ React.createElement("ul", { class: "overflow" }, backlinkFiles.length > 0 ? backlinkFiles.map((f) => /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("a", { href: resolveRelative(fileData.slug, f.slug), class: "internal" }, f.frontmatter?.title))) : /* @__PURE__ */ React.createElement("li", null, i18n(cfg.locale).components.backlinks.noBacklinksFound)));
+  return /* @__PURE__ */ jsxs13("div", { class: classNames(displayClass, "backlinks"), children: [
+    /* @__PURE__ */ jsx24("h3", { children: i18n(cfg.locale).components.backlinks.title }),
+    /* @__PURE__ */ jsx24("ul", { class: "overflow", children: backlinkFiles.length > 0 ? backlinkFiles.map((f) => /* @__PURE__ */ jsx24("li", { children: /* @__PURE__ */ jsx24("a", { href: resolveRelative(fileData.slug, f.slug), class: "internal", children: f.frontmatter?.title }) })) : /* @__PURE__ */ jsx24("li", { children: i18n(cfg.locale).components.backlinks.noBacklinksFound }) })
+  ] });
 }, "Backlinks");
 Backlinks.css = backlinks_default;
 
@@ -3959,226 +4072,23 @@ var search_default = "";
 // quartz/components/scripts/search.inline.ts
 var search_inline_default = "";
 
-// quartz/components/Search.tsx
-var defaultOptions14 = {
-  enablePreview: true
-};
-var Search_default = /* @__PURE__ */ __name((userOpts) => {
-  const Search = /* @__PURE__ */ __name(({ displayClass, cfg }) => {
-    const opts = { ...defaultOptions14, ...userOpts };
-    const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder;
-    return /* @__PURE__ */ React.createElement("div", { className: "top-nav-wrapper" }, /* @__PURE__ */ React.createElement("div", { className: "top-nav-wrapper" }, /* @__PURE__ */ React.createElement("div", { className: "page-titles" }, /* @__PURE__ */ React.createElement("a", { className: "headshot", href: "." }, /* @__PURE__ */ React.createElement(MyProfile, null))), /* @__PURE__ */ React.createElement("div", { className: "desktop-only" }, /* @__PURE__ */ React.createElement("div", { className: "flex header-links" }, /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/post" }, "Blog"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/notes" }, "Notes"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/projects" }, "Projects"), /* @__PURE__ */ React.createElement(DarkModeComp, { displayClass, cfg }), /* @__PURE__ */ React.createElement(
-      SearchComp,
-      {
-        opts,
-        cfg,
-        searchPlaceholder,
-        displayClass
-      }
-    )))), /* @__PURE__ */ React.createElement("div", { className: "popover-hint" }, /* @__PURE__ */ React.createElement("div", { className: "mobile-only" }, /* @__PURE__ */ React.createElement("div", { className: "top-nav" }, /* @__PURE__ */ React.createElement("div", { className: "hamburger", id: "hamburger" }, /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null)), /* @__PURE__ */ React.createElement("div", { id: "mobile-links", className: "off-screen-menu" }, /* @__PURE__ */ React.createElement("div", { className: "mobile-header-links" }, /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/post" }, "Blog"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/notes" }, "Notes"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/projects" }, "Projects"), /* @__PURE__ */ React.createElement(DarkModeComp, { displayClass, cfg }), /* @__PURE__ */ React.createElement(
-      SearchComp,
-      {
-        opts,
-        cfg,
-        searchPlaceholder,
-        displayClass
-      }
-    )))))));
-  }, "Search");
-  Search.afterDOMLoaded = search_inline_default;
-  Search.css = search_default;
-  return Search;
-}, "default");
-function MyProfile() {
-  return /* @__PURE__ */ React.createElement(
-    "img",
-    {
-      src: "",
-      alt: "Your porfoile"
-    }
-  );
-}
-__name(MyProfile, "MyProfile");
-function SearchComp({ userOpts, cfg, displayClass }) {
-  const opts = { ...defaultOptions14, ...userOpts };
-  const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder;
-  return /* @__PURE__ */ React.createElement("div", { class: classNames(displayClass, "search") }, /* @__PURE__ */ React.createElement("button", { class: "search-button", id: "search-button" }, /* @__PURE__ */ React.createElement("svg", { role: "img", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 19.9 19.7" }, /* @__PURE__ */ React.createElement("g", { class: "search-path", fill: "none" }, /* @__PURE__ */ React.createElement("path", { "stroke-linecap": "square", d: "M18.5 18.3l-5.4-5.4" }), /* @__PURE__ */ React.createElement("circle", { cx: "8", cy: "8", r: "7" })))), /* @__PURE__ */ React.createElement("div", { id: "search-container" }, /* @__PURE__ */ React.createElement("div", { id: "search-space" }, /* @__PURE__ */ React.createElement(
-    "input",
-    {
-      autocomplete: "off",
-      id: "search-bar",
-      name: "search",
-      type: "text",
-      "aria-label": searchPlaceholder,
-      placeholder: searchPlaceholder
-    }
-  ), /* @__PURE__ */ React.createElement("div", { id: "search-layout", "data-preview": opts.enablePreview }))));
-}
-__name(SearchComp, "SearchComp");
-function DarkModeComp({ displayClass, cfg }) {
-  return /* @__PURE__ */ React.createElement("button", { class: classNames(displayClass, "darkmode"), id: "darkmode" }, /* @__PURE__ */ React.createElement(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      xmlnsXlink: "http://www.w3.org/1999/xlink",
-      version: "1.1",
-      id: "dayIcon",
-      x: "0px",
-      y: "0px",
-      viewBox: "0 0 35 35",
-      style: "enable-background:new 0 0 35 35",
-      xmlSpace: "preserve",
-      "aria-label": i18n(cfg.locale).components.themeToggle.darkMode
-    },
-    /* @__PURE__ */ React.createElement("title", null, i18n(cfg.locale).components.themeToggle.darkMode),
-    /* @__PURE__ */ React.createElement("path", { d: "M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" })
-  ), /* @__PURE__ */ React.createElement(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      xmlnsXlink: "http://www.w3.org/1999/xlink",
-      version: "1.1",
-      id: "nightIcon",
-      x: "0px",
-      y: "0px",
-      viewBox: "0 0 100 100",
-      style: "enable-background:new 0 0 100 100",
-      xmlSpace: "preserve",
-      "aria-label": i18n(cfg.locale).components.themeToggle.lightMode
-    },
-    /* @__PURE__ */ React.createElement("title", null, i18n(cfg.locale).components.themeToggle.lightMode),
-    /* @__PURE__ */ React.createElement("path", { d: "M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" })
-  ));
-}
-__name(DarkModeComp, "DarkModeComp");
-
-// quartz/components/styles/footer.scss
-var footer_default = "";
-
-// quartz/components/Footer.tsx
-var Footer_default = /* @__PURE__ */ __name((opts) => {
-  const Footer = /* @__PURE__ */ __name(({ displayClass, cfg }) => {
-    const year = (/* @__PURE__ */ new Date()).getFullYear();
-    const links = opts?.links ?? [];
-    return /* @__PURE__ */ React.createElement("footer", { class: `${displayClass ?? ""}` }, /* @__PURE__ */ React.createElement("p", null, "Build with \u2665 K.Boopathi \xA9 ", year), /* @__PURE__ */ React.createElement("ul", null, Object.entries(links).map(([text, link]) => /* @__PURE__ */ React.createElement("li", null, /* @__PURE__ */ React.createElement("a", { href: link }, text)))));
-  }, "Footer");
-  Footer.css = footer_default;
-  return Footer;
-}, "default");
-
-// quartz/components/DesktopOnly.tsx
-var DesktopOnly_default = /* @__PURE__ */ __name((component) => {
-  if (component) {
-    const Component = component;
-    const DesktopOnly = /* @__PURE__ */ __name((props) => {
-      return /* @__PURE__ */ React.createElement(Component, { displayClass: "desktop-only", ...props });
-    }, "DesktopOnly");
-    DesktopOnly.displayName = component.displayName;
-    DesktopOnly.afterDOMLoaded = component?.afterDOMLoaded;
-    DesktopOnly.beforeDOMLoaded = component?.beforeDOMLoaded;
-    DesktopOnly.css = component?.css;
-    return DesktopOnly;
-  } else {
-    return () => /* @__PURE__ */ React.createElement(React.Fragment, null);
-  }
-}, "default");
-
-// quartz/components/MobileOnly.tsx
-var MobileOnly_default = /* @__PURE__ */ __name((component) => {
-  if (component) {
-    const Component = component;
-    const MobileOnly = /* @__PURE__ */ __name((props) => {
-      return /* @__PURE__ */ React.createElement(Component, { displayClass: "mobile-only", ...props });
-    }, "MobileOnly");
-    MobileOnly.displayName = component.displayName;
-    MobileOnly.afterDOMLoaded = component?.afterDOMLoaded;
-    MobileOnly.beforeDOMLoaded = component?.beforeDOMLoaded;
-    MobileOnly.css = component?.css;
-    return MobileOnly;
-  } else {
-    return () => /* @__PURE__ */ React.createElement(React.Fragment, null);
-  }
-}, "default");
-
-// quartz/components/styles/breadcrumbs.scss
-var breadcrumbs_default = "";
-
-// quartz/components/Breadcrumbs.tsx
-var defaultOptions15 = {
-  spacerSymbol: "\u276F",
-  rootName: "Home",
-  resolveFrontmatterTitle: true,
-  hideOnRoot: true,
-  showCurrentPage: true
-};
-function formatCrumb(displayName, baseSlug, currentSlug) {
-  return {
-    displayName: displayName.replaceAll("-", " "),
-    path: resolveRelative(baseSlug, currentSlug)
-  };
-}
-__name(formatCrumb, "formatCrumb");
-var Breadcrumbs_default = /* @__PURE__ */ __name((opts) => {
-  const options2 = { ...defaultOptions15, ...opts };
-  let folderIndex;
-  const Breadcrumbs = /* @__PURE__ */ __name(({
-    fileData,
-    allFiles,
-    displayClass
-  }) => {
-    if (options2.hideOnRoot && fileData.slug === "index") {
-      return /* @__PURE__ */ React.createElement(React.Fragment, null);
-    }
-    const firstEntry = formatCrumb(options2.rootName, fileData.slug, "/");
-    const crumbs = [firstEntry];
-    if (!folderIndex && options2.resolveFrontmatterTitle) {
-      folderIndex = /* @__PURE__ */ new Map();
-      for (const file of allFiles) {
-        const folderParts = file.slug?.split("/");
-        if (folderParts?.at(-1) === "index") {
-          folderIndex.set(folderParts.slice(0, -1).join("/"), file);
-        }
-      }
-    }
-    const slugParts = fileData.slug?.split("/");
-    if (slugParts) {
-      const isTagPath = slugParts[0] === "tags";
-      let currentPath = "";
-      for (let i = 0; i < slugParts.length - 1; i++) {
-        let curPathSegment = slugParts[i];
-        const currentFile = folderIndex?.get(slugParts.slice(0, i + 1).join("/"));
-        if (currentFile) {
-          const title = currentFile.frontmatter.title;
-          if (title !== "index") {
-            curPathSegment = title;
-          }
-        }
-        currentPath = joinSegments(currentPath, slugParts[i]);
-        const includeTrailingSlash = !isTagPath || i < 1;
-        const crumb = formatCrumb(
-          curPathSegment,
-          fileData.slug,
-          currentPath + (includeTrailingSlash ? "/" : "")
-        );
-        crumbs.push(crumb);
-      }
-      if (options2.showCurrentPage && slugParts.at(-1) !== "index") {
-        crumbs.push({
-          displayName: fileData.frontmatter.title,
-          path: ""
-        });
-      }
-    }
-    return /* @__PURE__ */ React.createElement("nav", { class: classNames(displayClass, "breadcrumb-container"), "aria-label": "breadcrumbs" }, crumbs.map((crumb, index) => /* @__PURE__ */ React.createElement("div", { class: "breadcrumb-element" }, /* @__PURE__ */ React.createElement("a", { href: crumb.path }, crumb.displayName), index !== crumbs.length - 1 && /* @__PURE__ */ React.createElement("p", null, ` ${options2.spacerSymbol} `))));
-  }, "Breadcrumbs");
-  Breadcrumbs.css = breadcrumbs_default;
-  return Breadcrumbs;
-}, "default");
-
 // quartz/components/TopNav.tsx
-var SearchCom = Search_default();
+import { jsx as jsx25, jsxs as jsxs14 } from "preact/jsx-runtime";
 var TopNav = /* @__PURE__ */ __name((props) => {
-  return /* @__PURE__ */ React.createElement("div", { className: "top-nav-wrapper" }, /* @__PURE__ */ React.createElement("div", { className: "top-nav-wrapper" }, /* @__PURE__ */ React.createElement("div", { className: "page-titles" }, /* @__PURE__ */ React.createElement("a", { className: "headshot", href: "." }, /* @__PURE__ */ React.createElement(MyProfile2, null))), /* @__PURE__ */ React.createElement("div", { className: "desktop-only" }, /* @__PURE__ */ React.createElement("div", { className: "flex header-links" }, /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/newsletter" }, "Blog"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/notest" }, "Notes"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/projects" }, "Projects")))), /* @__PURE__ */ React.createElement("div", { className: "popover-hint" }, /* @__PURE__ */ React.createElement("div", { className: "mobile-only" }, /* @__PURE__ */ React.createElement("div", { className: "top-nav" }, /* @__PURE__ */ React.createElement("div", { className: "hamburger", id: "hamburger" }, /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null)), /* @__PURE__ */ React.createElement("div", { id: "mobile-links", className: "off-screen-menu" }, /* @__PURE__ */ React.createElement("div", { className: "mobile-header-links" }, /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/newsletter" }, "Blog"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/Courses" }, "Notes"), /* @__PURE__ */ React.createElement("a", { className: "header-link", href: "/projects" }, "Projects")))))));
+  return /* @__PURE__ */ jsxs14("div", { className: "top-nav-wrapper", children: [
+    /* @__PURE__ */ jsxs14("div", { className: "top-nav-wrapper", children: [
+      /* @__PURE__ */ jsx25("div", { className: "page-titles", children: /* @__PURE__ */ jsx25("a", { className: "headshot", href: ".", children: /* @__PURE__ */ jsx25(MyProfile, {}) }) }),
+      /* @__PURE__ */ jsx25("div", { className: "desktop-only", children: /* @__PURE__ */ jsx25("div", { className: "flex header-links", children: /* @__PURE__ */ jsx25("a", { className: "header-link", href: "/notes", children: "Notes" }) }) })
+    ] }),
+    /* @__PURE__ */ jsx25("div", { className: "popover-hint", children: /* @__PURE__ */ jsx25("div", { className: "mobile-only", children: /* @__PURE__ */ jsxs14("div", { className: "top-nav", children: [
+      /* @__PURE__ */ jsxs14("div", { className: "hamburger", id: "hamburger", children: [
+        /* @__PURE__ */ jsx25("span", {}),
+        /* @__PURE__ */ jsx25("span", {}),
+        /* @__PURE__ */ jsx25("span", {})
+      ] }),
+      /* @__PURE__ */ jsx25("div", { id: "mobile-links", className: "off-screen-menu", children: /* @__PURE__ */ jsx25("div", { className: "mobile-header-links", children: /* @__PURE__ */ jsx25("a", { className: "header-link", href: "/notes", children: "Notes" }) }) })
+    ] }) }) })
+  ] });
 }, "TopNav");
 TopNav.css = `
 header {
@@ -4340,27 +4250,298 @@ pre:hover>.clipboard-button {
 }
 
 `;
-function MyProfile2() {
-  return /* @__PURE__ */ React.createElement(
-    "img",
-    {
-      src: "",
-      alt: "Your porfoile"
-    }
-  );
+function MyProfile() {
+  return /* @__PURE__ */ jsx25("img", { src: "/static/icon.jpg", alt: "My Profile" });
 }
-__name(MyProfile2, "MyProfile");
+__name(MyProfile, "MyProfile");
+
+// quartz/components/Search.tsx
+import { jsx as jsx26, jsxs as jsxs15 } from "preact/jsx-runtime";
+var defaultOptions14 = {
+  enablePreview: true,
+  folders: []
+};
+var Search_default = /* @__PURE__ */ __name((userOpts) => {
+  const Search = /* @__PURE__ */ __name(({
+    displayClass,
+    cfg
+  }) => {
+    const opts = { ...defaultOptions14, ...userOpts };
+    const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder;
+    return /* @__PURE__ */ jsxs15("div", { className: "top-nav-wrapper", children: [
+      /* @__PURE__ */ jsxs15("div", { className: "top-nav-wrapper", children: [
+        /* @__PURE__ */ jsx26("div", { className: "headshot", children: /* @__PURE__ */ jsx26(MyProfile, {}) }),
+        /* @__PURE__ */ jsx26("div", { className: "desktop-only", children: /* @__PURE__ */ jsxs15("div", { className: "flex header-links", children: [
+          opts.folders.map((folder) => /* @__PURE__ */ jsx26("a", { className: "header-link", href: `/${folder}`, children: folder.charAt(0).toUpperCase() + folder.slice(1) })),
+          /* @__PURE__ */ jsx26(DarkModeComp, { displayClass, cfg }),
+          /* @__PURE__ */ jsx26(
+            SearchComp,
+            {
+              opts,
+              cfg,
+              searchPlaceholder,
+              displayClass
+            }
+          )
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsx26("div", { className: "popover-hint", children: /* @__PURE__ */ jsx26("div", { className: "mobile-only", children: /* @__PURE__ */ jsxs15("div", { className: "top-nav", children: [
+        /* @__PURE__ */ jsxs15("div", { className: "hamburger", id: "hamburger", children: [
+          /* @__PURE__ */ jsx26("span", {}),
+          /* @__PURE__ */ jsx26("span", {}),
+          /* @__PURE__ */ jsx26("span", {})
+        ] }),
+        /* @__PURE__ */ jsx26("div", { id: "mobile-links", className: "off-screen-menu", children: /* @__PURE__ */ jsxs15("div", { className: "mobile-header-links", children: [
+          opts.folders.map((folder) => /* @__PURE__ */ jsx26("a", { className: "header-link", href: `/${folder}`, children: folder.charAt(0).toUpperCase() + folder.slice(1) })),
+          /* @__PURE__ */ jsx26(DarkModeComp, { displayClass, cfg }),
+          /* @__PURE__ */ jsx26(
+            SearchComp,
+            {
+              opts,
+              cfg,
+              searchPlaceholder,
+              displayClass
+            }
+          )
+        ] }) })
+      ] }) }) })
+    ] });
+  }, "Search");
+  Search.afterDOMLoaded = search_inline_default;
+  Search.css = search_default;
+  return Search;
+}, "default");
+function SearchComp({ userOpts, cfg, displayClass }) {
+  const opts = { ...defaultOptions14, ...userOpts };
+  const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder;
+  return /* @__PURE__ */ jsxs15("div", { class: classNames(displayClass, "search"), children: [
+    /* @__PURE__ */ jsx26("button", { class: "search-button", id: "search-button", children: /* @__PURE__ */ jsx26(
+      "svg",
+      {
+        role: "img",
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 19.9 19.7",
+        children: /* @__PURE__ */ jsxs15("g", { class: "search-path", fill: "none", children: [
+          /* @__PURE__ */ jsx26("path", { "stroke-linecap": "square", d: "M18.5 18.3l-5.4-5.4" }),
+          /* @__PURE__ */ jsx26("circle", { cx: "8", cy: "8", r: "7" })
+        ] })
+      }
+    ) }),
+    /* @__PURE__ */ jsx26("div", { id: "search-container", children: /* @__PURE__ */ jsxs15("div", { id: "search-space", children: [
+      /* @__PURE__ */ jsx26(
+        "input",
+        {
+          autocomplete: "off",
+          id: "search-bar",
+          name: "search",
+          type: "text",
+          "aria-label": searchPlaceholder,
+          placeholder: searchPlaceholder
+        }
+      ),
+      /* @__PURE__ */ jsx26("div", { id: "search-layout", "data-preview": opts.enablePreview })
+    ] }) })
+  ] });
+}
+__name(SearchComp, "SearchComp");
+function DarkModeComp({ displayClass, cfg }) {
+  return /* @__PURE__ */ jsxs15("button", { class: classNames(displayClass, "darkmode"), id: "darkmode", children: [
+    /* @__PURE__ */ jsxs15(
+      "svg",
+      {
+        xmlns: "http://www.w3.org/2000/svg",
+        xmlnsXlink: "http://www.w3.org/1999/xlink",
+        version: "1.1",
+        id: "dayIcon",
+        x: "0px",
+        y: "0px",
+        viewBox: "0 0 35 35",
+        style: "enable-background:new 0 0 35 35",
+        xmlSpace: "preserve",
+        "aria-label": i18n(cfg.locale).components.themeToggle.darkMode,
+        children: [
+          /* @__PURE__ */ jsx26("title", { children: i18n(cfg.locale).components.themeToggle.darkMode }),
+          /* @__PURE__ */ jsx26("path", { d: "M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z" })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxs15(
+      "svg",
+      {
+        xmlns: "http://www.w3.org/2000/svg",
+        xmlnsXlink: "http://www.w3.org/1999/xlink",
+        version: "1.1",
+        id: "nightIcon",
+        x: "0px",
+        y: "0px",
+        viewBox: "0 0 100 100",
+        style: "enable-background:new 0 0 100 100",
+        xmlSpace: "preserve",
+        "aria-label": i18n(cfg.locale).components.themeToggle.lightMode,
+        children: [
+          /* @__PURE__ */ jsx26("title", { children: i18n(cfg.locale).components.themeToggle.lightMode }),
+          /* @__PURE__ */ jsx26("path", { d: "M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z" })
+        ]
+      }
+    )
+  ] });
+}
+__name(DarkModeComp, "DarkModeComp");
+
+// quartz/components/styles/footer.scss
+var footer_default = "";
+
+// quartz/components/Footer.tsx
+import { jsx as jsx27, jsxs as jsxs16 } from "preact/jsx-runtime";
+var Footer_default = /* @__PURE__ */ __name((opts) => {
+  const Footer = /* @__PURE__ */ __name(({ displayClass, cfg }) => {
+    const year = (/* @__PURE__ */ new Date()).getFullYear();
+    const links = opts?.links ?? [];
+    return /* @__PURE__ */ jsxs16("footer", { class: `${displayClass ?? ""}`, children: [
+      /* @__PURE__ */ jsxs16("p", { children: [
+        "Build with \u2665 Sanjay V \xA9 ",
+        year
+      ] }),
+      /* @__PURE__ */ jsx27("ul", { children: Object.entries(links).map(([text, link]) => /* @__PURE__ */ jsx27("li", { children: /* @__PURE__ */ jsx27("a", { href: link, children: text }) })) })
+    ] });
+  }, "Footer");
+  Footer.css = footer_default;
+  return Footer;
+}, "default");
+
+// quartz/components/DesktopOnly.tsx
+import { Fragment as Fragment6, jsx as jsx28 } from "preact/jsx-runtime";
+var DesktopOnly_default = /* @__PURE__ */ __name((component) => {
+  if (component) {
+    const Component = component;
+    const DesktopOnly = /* @__PURE__ */ __name((props) => {
+      return /* @__PURE__ */ jsx28(Component, { displayClass: "desktop-only", ...props });
+    }, "DesktopOnly");
+    DesktopOnly.displayName = component.displayName;
+    DesktopOnly.afterDOMLoaded = component?.afterDOMLoaded;
+    DesktopOnly.beforeDOMLoaded = component?.beforeDOMLoaded;
+    DesktopOnly.css = component?.css;
+    return DesktopOnly;
+  } else {
+    return () => /* @__PURE__ */ jsx28(Fragment6, {});
+  }
+}, "default");
+
+// quartz/components/MobileOnly.tsx
+import { Fragment as Fragment7, jsx as jsx29 } from "preact/jsx-runtime";
+var MobileOnly_default = /* @__PURE__ */ __name((component) => {
+  if (component) {
+    const Component = component;
+    const MobileOnly = /* @__PURE__ */ __name((props) => {
+      return /* @__PURE__ */ jsx29(Component, { displayClass: "mobile-only", ...props });
+    }, "MobileOnly");
+    MobileOnly.displayName = component.displayName;
+    MobileOnly.afterDOMLoaded = component?.afterDOMLoaded;
+    MobileOnly.beforeDOMLoaded = component?.beforeDOMLoaded;
+    MobileOnly.css = component?.css;
+    return MobileOnly;
+  } else {
+    return () => /* @__PURE__ */ jsx29(Fragment7, {});
+  }
+}, "default");
+
+// quartz/components/RecentNotes.tsx
+import { jsx as jsx30, jsxs as jsxs17 } from "preact/jsx-runtime";
+
+// quartz/components/styles/breadcrumbs.scss
+var breadcrumbs_default = "";
+
+// quartz/components/Breadcrumbs.tsx
+import { Fragment as Fragment8, jsx as jsx31, jsxs as jsxs18 } from "preact/jsx-runtime";
+var defaultOptions15 = {
+  spacerSymbol: "\u276F",
+  rootName: "Home",
+  resolveFrontmatterTitle: true,
+  hideOnRoot: true,
+  showCurrentPage: true
+};
+function formatCrumb(displayName, baseSlug, currentSlug) {
+  return {
+    displayName: displayName.replaceAll("-", " "),
+    path: resolveRelative(baseSlug, currentSlug)
+  };
+}
+__name(formatCrumb, "formatCrumb");
+var Breadcrumbs_default = /* @__PURE__ */ __name((opts) => {
+  const options2 = { ...defaultOptions15, ...opts };
+  let folderIndex;
+  const Breadcrumbs = /* @__PURE__ */ __name(({
+    fileData,
+    allFiles,
+    displayClass
+  }) => {
+    if (options2.hideOnRoot && fileData.slug === "index") {
+      return /* @__PURE__ */ jsx31(Fragment8, {});
+    }
+    const firstEntry = formatCrumb(options2.rootName, fileData.slug, "/");
+    const crumbs = [firstEntry];
+    if (!folderIndex && options2.resolveFrontmatterTitle) {
+      folderIndex = /* @__PURE__ */ new Map();
+      for (const file of allFiles) {
+        const folderParts = file.slug?.split("/");
+        if (folderParts?.at(-1) === "index") {
+          folderIndex.set(folderParts.slice(0, -1).join("/"), file);
+        }
+      }
+    }
+    const slugParts = fileData.slug?.split("/");
+    if (slugParts) {
+      const isTagPath = slugParts[0] === "tags";
+      let currentPath = "";
+      for (let i = 0; i < slugParts.length - 1; i++) {
+        let curPathSegment = slugParts[i];
+        const currentFile = folderIndex?.get(slugParts.slice(0, i + 1).join("/"));
+        if (currentFile) {
+          const title = currentFile.frontmatter.title;
+          if (title !== "index") {
+            curPathSegment = title;
+          }
+        }
+        currentPath = joinSegments(currentPath, slugParts[i]);
+        const includeTrailingSlash = !isTagPath || i < 1;
+        const crumb = formatCrumb(
+          curPathSegment,
+          fileData.slug,
+          currentPath + (includeTrailingSlash ? "/" : "")
+        );
+        crumbs.push(crumb);
+      }
+      if (options2.showCurrentPage && slugParts.at(-1) !== "index") {
+        crumbs.push({
+          displayName: fileData.frontmatter.title,
+          path: ""
+        });
+      }
+    }
+    return /* @__PURE__ */ jsx31("nav", { class: classNames(displayClass, "breadcrumb-container"), "aria-label": "breadcrumbs", children: crumbs.map((crumb, index) => /* @__PURE__ */ jsxs18("div", { class: "breadcrumb-element", children: [
+      /* @__PURE__ */ jsx31("a", { href: crumb.path, children: crumb.displayName }),
+      index !== crumbs.length - 1 && /* @__PURE__ */ jsx31("p", { children: ` ${options2.spacerSymbol} ` })
+    ] })) });
+  }, "Breadcrumbs");
+  Breadcrumbs.css = breadcrumbs_default;
+  return Breadcrumbs;
+}, "default");
+
+// quartz/components/Comments.tsx
+import { jsx as jsx32 } from "preact/jsx-runtime";
 
 // quartz.layout.ts
 var sharedPageComponents = {
   head: Head_default(),
-  header: [Search_default()],
+  header: [Search_default(
+    { folders: ["notes"] }
+  )],
   afterBody: [Graph_default()],
   footer: Footer_default({
     links: {
-      GitHub: "https://github.com/example",
-      Linkedin: "https://www.linkedin.com/in/example/",
-      Twitter: "https://twitter.com/example"
+      GitHub: "https://github.com/sanjay2024",
+      Linkedin: "https://www.linkedin.com/in/sanjay2024/",
+      Twitter: "https://x.com/sanjayv22318195"
     }
   })
 };
@@ -5512,7 +5693,7 @@ import chalk4 from "chalk";
 // quartz.config.ts
 var config = {
   configuration: {
-    pageTitle: "\u{1F9E0} Second Brain",
+    pageTitle: "\u{1F9E0} MY TECH NOTES",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,

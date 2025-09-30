@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>Docker Zero to Hero</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Rubik:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:title" content="Docker Zero to Hero"/><meta property="og:description" content="What is Docker ? Docker is an open source platform that enables developers to build, deploy, run, update and manage containers—standardized, executable components that combine ..."/><meta property="og:image" content="https://example.github.io/static/icon.jpg"/><meta property="og:width" content="1200"/><meta property="og:height" content="675"/><link rel="icon" href="../../static/icon.jpg"/><meta name="description" content="What is Docker ? Docker is an open source platform that enables developers to build, deploy, run, update and manage containers—standardized, executable components that combine ..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="notes/2024/Docker-Zero-to-Hero"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><div class="spacer mobile-only"></div></div><div class="center"><div class="page-header"><div class="top-nav-wrapper"><div class="top-nav-wrapper"><div class="headshot"><img src="/static/icon.jpg" alt="My Profile"/></div><div class="desktop-only"><div class="flex header-links"><a class="header-link" href="/notes">Notes</a><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="search"><button class="search-button" id="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div></div></div></div><div class="popover-hint"><div class="mobile-only"><div class="top-nav"><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div><div id="mobile-links" class="off-screen-menu"><div class="mobile-header-links"><a class="header-link" href="/notes">Notes</a><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="search"><button class="search-button" id="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div></div></div></div></div></div></div><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../notes/">notes</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../notes/2024/">2024</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>Docker Zero to Hero</a></div></nav><h1 class="article-title">Docker Zero to Hero</h1><p show-comma="true" class="content-meta"><span>Sep 21, 2025</span><span>14 min read</span></p><ul class="tags"><li><a href="../../tags/devops" class="internal tag-link">devops</a></li><li><a href="../../tags/backend" class="internal tag-link">backend</a></li><li><a href="../../tags/docker" class="internal tag-link">docker</a></li></ul><div class="toc mobile-only"><button type="button" id="toc" class="collapsed" aria-controls="toc-content" aria-expanded="false"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class="collapsed"><ul class="overflow"><li class="depth-0"><a href="#what-is-docker-" data-for="what-is-docker-">What is Docker ?</a></li><li class="depth-1"><a href="#use-case-running-a-nodejs-application-in-docker" data-for="use-case-running-a-nodejs-application-in-docker">Use Case: Running a Node.js Application in Docker</a></li><li class="depth-1"><a href="#docker-daemons-role-in-this-example" data-for="docker-daemons-role-in-this-example">Docker Daemon’s Role in This Example</a></li><li class="depth-1"><a href="#useful-commands-to-observe-docker-daemon-in-action" data-for="useful-commands-to-observe-docker-daemon-in-action">Useful Commands to Observe Docker Daemon in Action</a></li><li class="depth-0"><a href="#unix-socket" data-for="unix-socket">UNIX socket</a></li><li class="depth-1"><a href="#bridge-network-in-docker" data-for="bridge-network-in-docker">Bridge Network in Docker</a></li><li class="depth-1"><a href="#examples" data-for="examples">Examples</a></li><li class="depth-1"><a href="#scenario-1-local-machine-as-the-host" data-for="scenario-1-local-machine-as-the-host">Scenario 1: Local Machine as the Host</a></li><li class="depth-1"><a href="#scenario-2-cloud-instance-as-the-host" data-for="scenario-2-cloud-instance-as-the-host">Scenario 2: Cloud Instance as the Host</a></li><li class="depth-0"><a href="#docker-registry" data-for="docker-registry">Docker Registry</a></li><li class="depth-1"><a href="#steps-to-create-docker-file-to-create-image" data-for="steps-to-create-docker-file-to-create-image">Steps to create docker file to create image</a></li><li class="depth-1"><a href="#1-what-are-image-layers" data-for="1-what-are-image-layers">1. What are Image Layers?</a></li><li class="depth-1"><a href="#2-why-does-each-run-command-create-a-new-layer" data-for="2-why-does-each-run-command-create-a-new-layer">2. Why Does Each RUN Command Create a New Layer?</a></li><li class="depth-1"><a href="#a-modularity" data-for="a-modularity">a. Modularity</a></li><li class="depth-1"><a href="#b-layer-caching" data-for="b-layer-caching">b. Layer Caching</a></li><li class="depth-1"><a href="#c-fault-isolation" data-for="c-fault-isolation">c. Fault Isolation</a></li><li class="depth-1"><a href="#d-layer-sharing" data-for="d-layer-sharing">d. Layer Sharing</a></li><li class="depth-1"><a href="#3-purpose-of-new-layers-for-each-run" data-for="3-purpose-of-new-layers-for-each-run">3. Purpose of New Layers for Each RUN</a></li><li class="depth-1"><a href="#4-how-it-works-in-practice" data-for="4-how-it-works-in-practice">4. How It Works in Practice</a></li><li class="depth-1"><a href="#5-best-practices-for-docker-layers" data-for="5-best-practices-for-docker-layers">5. Best Practices for Docker Layers</a></li><li class="depth-0"><a href="#note" data-for="note">Note:</a></li><li class="depth-0"><a href="#docker-commands" data-for="docker-commands">Docker Commands</a></li></ul></div></div></div></div><article class="popover-hint"><h2 id="what-is-docker-">What is Docker ?<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#what-is-docker-" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Docker is an open source platform that enables developers to build, deploy, run, update and
+manage containers—<code>standardized</code>, executable components that combine application source
+code with the operating system (OS) libraries and dependencies required to run that code in
+any environment.</p>
+<p>Docker terminologies :</p>
+<p><strong>Images:</strong> The blueprints of our application which form the basis of containers. These
+contain all of the configuration settings that define the isolated environment.
+Docker images contain executable application source code as well as all the tools, libraries
+and dependencies that the application code needs to run as a container. When you run the
+Docker image, it becomes one instance (or multiple instances) of the container.</p>
+<p>Multiple Docker images can be created from a single base image
+Docker images are made up of layers and each layer corresponds to a version of the image.
+Whenever a developer makes changes to the image, a new top layer is created and this top
+layer replaces the previous top layer as the current version of the image. Previous layers are
+saved for rollbacks or to be re-used in other projects.</p>
+<p>Each time a container is created from a Docker image, yet another new layer called the
+container layer is created. Changes made to the container—such as the addition or deletion
+of files—are saved to the container layer and exist only while the container is running.</p>
+<p>This iterative image-creation process enables increased overall efficiency since multiple live
+container instances can run from just a single base image and when they do so, they
+leverage a common stack.</p>
+<p><strong>Containers:</strong> Are instances of a Docker image and are what run the actual application.A
+Docker container image is a lightweight, standalone, executable package of software that
+includes everything needed to run an application: code, runtime, system tools, system
+libraries and settings.</p>
+<p>Container images become containers at runtime and in the case of Docker containers –
+images become containers when they run on Docker Engine.</p>
+<p><strong>Docker Daemon:</strong> That background service running on the host that listens to API calls (via
+the Docker client), manages images and building, running and distributing containers. The
+Deamon is the process that runs in the operating system which the client talks to – playing
+the role of the broker.</p>
+<p>Docker daemon is a service that creates and manages Docker images, using the commands from the client. Essentially the Docker daemon serves as the control center of your Docker implementation. The server on which Docker daemon runs is called the Docker host</p>
+<p><strong>Docker Client:</strong></p>
+<p>Docker CLI is the most commonly used tool. It is the command-line interface used to control
+the Docker service. The Docker CLI enables you to interact with the system. To do this, we
+can use the Docker command, which will allow us to send and receive messages from the
+Docker daemon. The Docker command executes commands, creates images and networks,
+starts and stops containers, and more.</p>
+<p>The Docker CLI receives commands, checks to ensure they are correctly formatted, and
+then turns them into a REST API call. The Docker daemon listens for requests from Docker</p>
+<p>CLI and processes them according to its configuration. It is responsible for executing
+commands, processing requests, monitoring how containers run, mounting volumes, starting
+and stopping containers, and more.</p>
+<p>The Docker client and daemon can both run on the same device. Alternatively, you can
+connect a Docker client to a remote Docker daemon. It allows you to manage a remote
+machine’s Docker system. After all, the Docker client and daemon communicate with each
+other using a REST API over UNIX sockets or a network interface.</p>
+<p><strong>Docker Hub</strong>: A registry of Docker images containing all available Docker images. A user
+can have their own registry, from which they can pull images.</p>
+<p><strong>Virtual Machines VS Containers :</strong></p>
+<p>A virtual machine (VM) is another way of creating an isolated environment. A VM is
+effectively an individual computer that lives inside a host machine; multiple VMs can live
+inside a single host machine. VMs are created by virtualising the host machine’s underlying
+hardware (processing, memory and disk). The hardware is virtualised and split up, with a
+piece representing a portion of the underlying physical hardware, which a VM can be run on.</p>
+<p><img src="../../pics/image.png" alt="image.png"/></p>
+<h3 id="use-case-running-a-nodejs-application-in-docker">Use Case: Running a <code>Node.js</code> Application in Docker<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#use-case-running-a-nodejs-application-in-docker" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p><strong>Install Docker</strong>:
+Ensure Docker is installed and the Docker Daemon is running on your machine.</p>
+</li>
+<li>
+<p><strong>Create a Simple Node.js App</strong>:</p>
+<ul>
+<li>
+<p>File: <code>app.js</code></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsx" data-theme="github-light github-dark"><code data-language="jsx" data-theme="github-light github-dark" style="display:grid;"><span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> http</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> require</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;http&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> port</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 3000</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> server</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> http.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">createServer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">((</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">req</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">res</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    res.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">writeHead</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">200</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, { </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;Content-Type&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;text/plain&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> });</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    res.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">end</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;Hello from Docker!</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">\n</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">});</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">server.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">listen</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(port, () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">log</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">`Server running at http://localhost:${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">port</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">}/`</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">});</span></span>
+<span data-line> </span></code></pre></figure>
+</li>
+</ul>
+<p>File: <code>package.json</code></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="json" data-theme="github-light github-dark"><code data-language="json" data-theme="github-light github-dark" style="display:grid;"><span data-line> </span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;name&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;docker-node-example&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;version&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;1.0.0&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;main&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;app.js&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;scripts&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;start&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;node app.js&quot;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  },</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  &quot;dependencies&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: {}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line> </span></code></pre></figure>
+</li>
+<li>
+<p><strong>Create a <code>Dockerfile</code></strong>:</p>
+<pre><code>FROM node:16
+
+# Set the working directory
+WORKDIR /app
+
+# Copy app files to the container
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Expose the application port
+EXPOSE 3000
+
+# Command to run the application
+CMD [&quot;npm&quot;, &quot;start&quot;]
+
+</code></pre>
+</li>
+<li>
+<p><strong>Build and Run the Application</strong>:</p>
+<ul>
+<li>
+<p>Build the image:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> build</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -t</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> node-docker-example</span></span></code></pre></figure>
+</li>
+<li>
+<p>Run the container:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> run</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -d</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 3000:3000</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> node-docker-example</span></span></code></pre></figure>
+</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h3 id="docker-daemons-role-in-this-example"><strong>Docker Daemon’s Role in This Example</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#docker-daemons-role-in-this-example" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li><strong>Image Build (<code>docker build</code>)</strong>:
+<ul>
+<li>The CLI sends the <code>build</code> request to the Docker Daemon.</li>
+<li>The daemon reads the <code>Dockerfile</code>, pulls the required base image (<code>node:16</code>), and creates the new image <code>node-docker-example</code>.</li>
+</ul>
+</li>
+<li><strong>Container Start (<code>docker run</code>)</strong>:
+<ul>
+<li>The CLI sends the <code>run</code> request to the Docker Daemon.</li>
+<li>The daemon uses the <code>node-docker-example</code> image to create and start a container.</li>
+<li>It maps port <code>3000</code> of the container to port <code>3000</code> on the host machine.</li>
+</ul>
+</li>
+<li><strong>Networking</strong>:
+<ul>
+<li>The daemon sets up a bridge network for the container to communicate with the host.</li>
+</ul>
+</li>
+<li><strong>Monitoring</strong>:
+<ul>
+<li>The daemon continuously monitors the container’s state and manages its lifecycle (e.g., restarting it if needed).</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h3 id="useful-commands-to-observe-docker-daemon-in-action"><strong>Useful Commands to Observe Docker Daemon in Action</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#useful-commands-to-observe-docker-daemon-in-action" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p><strong>List Running Containers</strong>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> ps</span></span></code></pre></figure>
+<p>Displays all active containers managed by the Docker Daemon.</p>
+</li>
+<li>
+<p><strong>Inspect Container Logs</strong>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> logs</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">container-i</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">d</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line> </span></code></pre></figure>
+</li>
+<li>
+<p><strong>View Daemon Logs (Linux)</strong>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">sudo</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> journalctl</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -u</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> docker</span></span></code></pre></figure>
+</li>
+<li>
+<p><strong>Check Daemon Status</strong>:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line> </span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">systemctl</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> status</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> docker</span></span></code></pre></figure>
+</li>
+</ol>
+<h2 id="unix-socket">UNIX socket<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#unix-socket" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>unix socket is used to communicate with process  running on the same machine</p>
+<p>ref:</p>
+<p><a href="https://serverfault.com/questions/124517/what-is-the-difference-between-unix-sockets-and-tcp-ip-sockets" class="external">What is the difference between Unix sockets and TCP/IP sockets?<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p>docker deamon create the bridge network between the host and the container</p>
+<p>In the context of Docker, <strong>the host</strong> refers to the <strong>physical or virtual machine</strong> on which the Docker Daemon is running. This could be:</p>
+<ol>
+<li><strong>Your Local Machine</strong>:
+<ul>
+<li>If you are running Docker on your laptop or desktop, the host is your personal computer.</li>
+</ul>
+</li>
+<li><strong>A Cloud Instance</strong>:
+<ul>
+<li>If you are using a cloud service like AWS, Google Cloud, or Azure to run Docker, the host is the virtual machine instance in the cloud.</li>
+</ul>
+</li>
+<li><strong>A Server</strong>:
+<ul>
+<li>In a production environment, the host might be a dedicated server or a virtual server within a data center.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h3 id="bridge-network-in-docker"><strong>Bridge Network in Docker</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#bridge-network-in-docker" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>When Docker sets up a <strong>bridge network</strong>, it allows containers to communicate with each other and the host machine. Here’s how the relationship works:</p>
+<ul>
+<li>The <strong>Docker Daemon</strong> creates a virtual network interface (usually named <code>docker0</code>) on the host machine. This acts as a bridge between the host and containers.</li>
+<li>Containers attached to the bridge network can communicate:
+<ul>
+<li><strong>With each other</strong> using private IP addresses assigned by Docker.</li>
+<li><strong>With the host</strong> via the <code>docker0</code> interface.</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h3 id="examples"><strong>Examples</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#examples" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h3 id="scenario-1-local-machine-as-the-host">Scenario 1: Local Machine as the Host<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#scenario-1-local-machine-as-the-host" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>You run a Node.js app in a container with:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">bash</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">Copy</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> code</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> run</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -d</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 3000:3000</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> node-docker-example</span></span>
+<span data-line> </span></code></pre></figure>
+</li>
+<li>
+<p>The host is your local machine.</p>
+</li>
+<li>
+<p>When you access <code>http://localhost:3000</code> in your browser, you are connecting to the host (your computer), which forwards the request to the container through the bridge network.</p>
+</li>
+</ul>
+<h3 id="scenario-2-cloud-instance-as-the-host">Scenario 2: Cloud Instance as the Host<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#scenario-2-cloud-instance-as-the-host" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>You deploy a Dockerized Node.js app to an AWS EC2 instance:</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="bash" data-theme="github-light github-dark"><code data-language="bash" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">bash</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">Copy</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> code</span></span>
+<span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">docker</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> run</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -d</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> -p</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> 3000:3000</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> node-docker-example</span></span>
+<span data-line> </span></code></pre></figure>
+</li>
+<li>
+<p>The host is the EC2 instance.</p>
+</li>
+<li>
+<p>When you access <code>http://&lt;EC2-public-IP>:3000</code>, you are connecting to the host (the EC2 instance), which forwards the request to the container.</p>
+</li>
+</ul>
+<h2 id="docker-registry">Docker Registry<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#docker-registry" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>There is two type of registry one public registry and another one is private registry , public registry means docker hub itself where the <code>organization</code> register their  images publicly like <code>redis</code> , <code>ngnix</code> and <code>rabbitmq</code> etc</p>
+<p>In private registry we cannot run the image directly , to run the image we want to authenticate and run the image , some of the image registry platforms are <code>AWS ECR (Elastic Container Registry)</code> , Google Container Register , Azure Container Registry and docker hub etc</p>
+<p><strong>Docker File :</strong></p>
+<p>Docker builds images automatically by reading the instructions from a Dockerfile.
+It is a text file without any .txt extensions that contains all commands in order,
+needed to build a given image.
+It is always named <strong><code>*Dockerfile*</code></strong>.</p>
+<p><img src="../../pics/image-1.png" alt="image.png"/></p>
+<p>Docker image consists of read-only layers each of which represents a Dockerfile instruction. The layers are stacked and each one is created by the change from the previous layer. For example, if I create a base layer of ubuntu and then in second instruction I install Python it will create a second layer. Likewise, if I do any changes by the instructions(RUN , COPY , ADD) it will create a new layer in that image. Containers are read-write layers that are created by docker images.</p>
+<p>In simple words, <strong>a Dockerfile is a set of instructions that creates a stacked-layer
+for each instruction that collectively makes an image(which is a prototype or
+template for containers)</strong></p>
+<h3 id="steps-to-create-docker-file-to-create-image">Steps to create docker file to create image<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#steps-to-create-docker-file-to-create-image" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p>choose the base image , eg: if your application is a node application then choose the any version of the node image and make it as the base image . <code>FROM</code> command defines the base image and the container is built on top of the base image</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="docker" data-theme="github-light github-dark"><code data-language="docker" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [image_name]:[version]</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> node: alpine // this defines the base image of the container</span></span></code></pre></figure>
+</li>
+<li>
+<p>Next to run the code we want to copy the code and move to our container folder for that we want to use the <code>COPY</code>  command  <code>COPY source dest</code></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="docker" data-theme="github-light github-dark"><code data-language="docker" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">COPY</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> package.json /app/</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">COPY</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> src /app/</span></span></code></pre></figure>
+</li>
+<li>
+<p>To run the application first we want to download the package  for that we want to run npm i
+to execute the command we <code>RUN</code> command</p>
+</li>
+<li>
+<p>To go to the correct directory to run the application , want to use the <code>WORKDIR</code> command to execute</p>
+</li>
+<li>
+<p>To Run the application or to start the application we want to use the <code>CMD</code> command for start the docker container</p>
+</li>
+</ol>
+<p>Each <code>RUN</code> command in a Dockerfile creates a new image layer to enable a modular, efficient, and flexible way of building and maintaining Docker images. Here’s a detailed explanation:</p>
+<hr/>
+<h3 id="1-what-are-image-layers">1. <strong>What are Image Layers?</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-what-are-image-layers" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Definition</strong>: Docker images are built in layers. Each layer represents a set of filesystem changes (like adding files, running commands, or modifying configurations).</li>
+<li><strong>Stacking Layers</strong>: When you build an image, Docker stacks these layers on top of a base image.</li>
+</ul>
+<hr/>
+<h3 id="2-why-does-each-run-command-create-a-new-layer">2. <strong>Why Does Each <code>RUN</code> Command Create a New Layer?</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-why-does-each-run-command-create-a-new-layer" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h3 id="a-modularity">a. <strong>Modularity</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#a-modularity" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Each <code>RUN</code> command isolates changes made by that step.</li>
+<li>This modularity allows Docker to manage and reuse layers efficiently.
+<ul>
+<li>Example: If a later layer changes, Docker can rebuild only that layer and subsequent layers, leaving unchanged layers intact.</li>
+</ul>
+</li>
+</ul>
+<h3 id="b-layer-caching">b. <strong>Layer Caching</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#b-layer-caching" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Layers are cached to improve build performance. If the content of a layer hasn’t changed, Docker reuses it rather than recreating it.
+<ul>
+<li>Example: If you install dependencies with <code>RUN apt-get install</code>, Docker will cache this layer. If no changes are made to this step, it won’t rerun on subsequent builds.</li>
+</ul>
+</li>
+</ul>
+<h3 id="c-fault-isolation">c. <strong>Fault Isolation</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#c-fault-isolation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>If a step in the Dockerfile fails, only that specific layer and subsequent ones need to be rebuilt, not the entire image.</li>
+<li>This makes debugging faster and more manageable.</li>
+</ul>
+<h3 id="d-layer-sharing">d. <strong>Layer Sharing</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#d-layer-sharing" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>Docker uses layers as a way to optimize disk usage.</li>
+<li>If multiple images share the same base layers, Docker stores these layers once and reuses them across images.</li>
+</ul>
+<hr/>
+<h3 id="3-purpose-of-new-layers-for-each-run">3. <strong>Purpose of New Layers for Each <code>RUN</code></strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-purpose-of-new-layers-for-each-run" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Creating a new layer for each <code>RUN</code> command provides:</p>
+<ol>
+<li><strong>Efficiency</strong>:
+<ul>
+<li>Speeds up builds by leveraging cached layers.</li>
+<li>Reduces storage requirements since layers are reused across images.</li>
+</ul>
+</li>
+<li><strong>Flexibility</strong>:
+<ul>
+<li>Modular layers make it easier to modify and debug specific parts of the Dockerfile without rebuilding the entire image.</li>
+</ul>
+</li>
+<li><strong>Version Control</strong>:
+<ul>
+<li>Layers act as checkpoints during the build process, enabling better control over the build process.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h3 id="4-how-it-works-in-practice">4. <strong>How It Works in Practice</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-how-it-works-in-practice" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>Example 1: Modular Build Process</strong></p>
+<pre><code>Dockerfile
+
+FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get install -y curl
+RUN echo &quot;Hello, Docker!&quot;
+
+</code></pre>
+<ul>
+<li>Each <code>RUN</code> command creates a new layer:
+<ol>
+<li><code>apt-get update</code> (Layer 1)</li>
+<li><code>apt-get install curl</code> (Layer 2)</li>
+<li><code>echo &quot;Hello, Docker!&quot;</code> (Layer 3)</li>
+</ol>
+</li>
+</ul>
+<p>If you modify <code>RUN echo &quot;Hello, Docker!&quot;</code>, Docker rebuilds only Layer 3 and any dependent layers.</p>
+<p><strong>Example 2: Efficient Caching</strong></p>
+<pre><code>Dockerfile
+Copy code
+RUN apt-get update &amp;&amp; apt-get install -y curl
+
+</code></pre>
+<ul>
+<li>Combining commands into a single <code>RUN</code> reduces the number of layers, improving efficiency.</li>
+<li>Use it when the commands are logically related.</li>
+</ul>
+<hr/>
+<h3 id="5-best-practices-for-docker-layers">5. <strong>Best Practices for Docker Layers</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-best-practices-for-docker-layers" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p><strong>Minimize Layers</strong>: Combine commands to reduce the number of layers.</p>
+</li>
+<li>
+<p><strong>Order Commands Wisely</strong>: Place frequently changing steps later in the Dockerfile to maximize caching.</p>
+</li>
+<li>
+<p><strong>Clean Up</strong>: Remove temporary files within the same <code>RUN</code> command to avoid bloating the image.</p>
+<pre><code>Dockerfile
+Copy code
+RUN apt-get update &amp;&amp; apt-get install -y curl &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+</code></pre>
+</li>
+</ul>
+<p>By understanding why each <code>RUN</code> command creates a new layer, you can build efficient, reusable, and maintainable Docker images.</p>
+<h2 id="note">Note:<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#note" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>every time when you run the docker container , will create a new instance of the image , it doesn’t reuse the old container , but when you execute the command <code>docker ps</code> it only display the active container, to view the container which we created before want to use the <code>-a</code></li>
+</ol>
+<h2 id="docker-commands">Docker Commands<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#docker-commands" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>List the docker images - <code>docker image</code></li>
+<li>List the active docker container - <code>docker ps</code></li>
+<li>download the image - <code>docker pull [image _Name]:[VERSION]</code>  → will download the image locally , this will pull the image directly from the docker hub , docker hub is like <code>npm</code> registry</li>
+<li>how to run the container → <code>docker run [image name]: version</code>
+the above command will run the image or run the container which will show the logs of the container which will block the terminal you won’t be able to run any other command , if you want to run the command you only be able to do it in another tab, for non blocking container execution add a option -d in the above command</li>
+</ol>
+<p><code>docker run -d [image_name][version] - where d for detach</code>  but in this command you wont see any logs , if we want to see the logs the of that container execute this command
+<code>docker log [docker_id]</code>
+5. stop the container - <code>docker stop [container_id]</code>
+6. port binding -  <code>docker run -d -p [host_port]:[container_port] [image_name]: [version_name]</code>  it always good to bind the same port as the container port
+7. start the container - <code>docker start [docker_id]</code>
+difference btw docker start and docker run is docker run create a new instance of the image and execute where as the docker start will restart the already existed container
+8. we can also give the custom name to the container for that we want to use the —name flag while running the container <code>docker run —name [name] -d [image_name]:[version]</code> so we can start , stop and get the log we if runs the command -d flag with name which we have given while running the docker instead of docker_id
+9. CMD - cmd command is used execute when the container runs we can also override the default command by specifying the params in CMD command
+10. ENTRYPOINT:</p>
+<ul>
+<li><strong>Purpose</strong>: Defines a command that <strong>always runs</strong> when the container starts.</li>
+<li><strong>Usage</strong>: Used for containers with a specific task or application (e.g., running scripts, services).</li>
+<li><strong>When It Runs</strong>: At runtime and cannot be fully overridden (but arguments can be added).</li>
+<li><strong>Effect</strong>: Always executes the specified command as the primary process of the container.</li>
+</ul>
+<ol>
+<li>build command for building image - docker build -t [imageName]:[version] [locatlion of the dockerfile]</li>
+<li>Usually docker doesn’t remove the unused container , unless we manually specify the prune command</li>
+</ol>
+<p>reference:</p>
+<p><a href="https://www.docker.com/blog/docker-best-practices-choosing-between-run-cmd-and-entrypoint/" class="external">Docker Best Practices: Choosing Between RUN, CMD, and ENTRYPOINT | Docker<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p>prune:</p>
+<p>ref: <a href="https://docs.docker.com/engine/manage-resources/pruning/#:~:text=Prune%20containers,-When%20you%20stop&amp;text=A%20stopped%20container's%20writable%20layers,the%20docker%20container%20prune%20command.&amp;text=By%20default%2C%20you're%20prompted,f%20or%20%2D%2Dforce%20flag" class="external">https://docs.docker.com/engine/manage-resources/pruning/#:~:text=Prune containers,-When you stop&amp;text=A stopped container’s writable layers,the docker container prune command.&amp;text=By default%2C you’re prompted,f or —force flag<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>.</p></article><hr/><div class="page-footer"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" id="toc" class="collapsed" aria-controls="toc-content" aria-expanded="false"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class="collapsed"><ul class="overflow"><li class="depth-0"><a href="#what-is-docker-" data-for="what-is-docker-">What is Docker ?</a></li><li class="depth-1"><a href="#use-case-running-a-nodejs-application-in-docker" data-for="use-case-running-a-nodejs-application-in-docker">Use Case: Running a Node.js Application in Docker</a></li><li class="depth-1"><a href="#docker-daemons-role-in-this-example" data-for="docker-daemons-role-in-this-example">Docker Daemon’s Role in This Example</a></li><li class="depth-1"><a href="#useful-commands-to-observe-docker-daemon-in-action" data-for="useful-commands-to-observe-docker-daemon-in-action">Useful Commands to Observe Docker Daemon in Action</a></li><li class="depth-0"><a href="#unix-socket" data-for="unix-socket">UNIX socket</a></li><li class="depth-1"><a href="#bridge-network-in-docker" data-for="bridge-network-in-docker">Bridge Network in Docker</a></li><li class="depth-1"><a href="#examples" data-for="examples">Examples</a></li><li class="depth-1"><a href="#scenario-1-local-machine-as-the-host" data-for="scenario-1-local-machine-as-the-host">Scenario 1: Local Machine as the Host</a></li><li class="depth-1"><a href="#scenario-2-cloud-instance-as-the-host" data-for="scenario-2-cloud-instance-as-the-host">Scenario 2: Cloud Instance as the Host</a></li><li class="depth-0"><a href="#docker-registry" data-for="docker-registry">Docker Registry</a></li><li class="depth-1"><a href="#steps-to-create-docker-file-to-create-image" data-for="steps-to-create-docker-file-to-create-image">Steps to create docker file to create image</a></li><li class="depth-1"><a href="#1-what-are-image-layers" data-for="1-what-are-image-layers">1. What are Image Layers?</a></li><li class="depth-1"><a href="#2-why-does-each-run-command-create-a-new-layer" data-for="2-why-does-each-run-command-create-a-new-layer">2. Why Does Each RUN Command Create a New Layer?</a></li><li class="depth-1"><a href="#a-modularity" data-for="a-modularity">a. Modularity</a></li><li class="depth-1"><a href="#b-layer-caching" data-for="b-layer-caching">b. Layer Caching</a></li><li class="depth-1"><a href="#c-fault-isolation" data-for="c-fault-isolation">c. Fault Isolation</a></li><li class="depth-1"><a href="#d-layer-sharing" data-for="d-layer-sharing">d. Layer Sharing</a></li><li class="depth-1"><a href="#3-purpose-of-new-layers-for-each-run" data-for="3-purpose-of-new-layers-for-each-run">3. Purpose of New Layers for Each RUN</a></li><li class="depth-1"><a href="#4-how-it-works-in-practice" data-for="4-how-it-works-in-practice">4. How It Works in Practice</a></li><li class="depth-1"><a href="#5-best-practices-for-docker-layers" data-for="5-best-practices-for-docker-layers">5. Best Practices for Docker Layers</a></li><li class="depth-0"><a href="#note" data-for="note">Note:</a></li><li class="depth-0"><a href="#docker-commands" data-for="docker-commands">Docker Commands</a></li></ul></div></div></div><footer class><p>Build with ♥ Sanjay V © 2025</p><ul><li><a href="https://github.com/sanjay2024">GitHub</a></li><li><a href="https://www.linkedin.com/in/sanjay2024/">Linkedin</a></li><li><a href="https://x.com/sanjayv22318195">Twitter</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script type="module">
+          let mermaidImport = undefined
+          document.addEventListener('nav', async () => {
+            if (document.querySelector("code.mermaid")) {
+              mermaidImport ||= await import('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs')
+              const mermaid = mermaidImport.default
+              const darkMode = document.documentElement.getAttribute('saved-theme') === 'dark'
+              mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'loose',
+                theme: darkMode ? 'dark' : 'default'
+              })
+
+              await mermaid.run({
+                querySelector: '.mermaid'
+              })
+            }
+          });
+          </script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/copy-tex.min.js" type="application/javascript"></script><script type="application/javascript">
+        const socket = new WebSocket('ws://localhost:3001')
+        // reload(true) ensures resources like images and scripts are fetched again in firefox
+        socket.addEventListener('message', () => document.location.reload(true))
+      </script><script src="../../postscript.js" type="module"></script></html>

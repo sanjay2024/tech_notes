@@ -8,6 +8,7 @@ import style from "./styles/search.scss";
 import script from "./scripts/search.inline";
 import { classNames } from "../util/lang";
 import { i18n } from "../i18n";
+import { MyProfile } from "./TopNav";
 
 export interface SearchOptions {
   enablePreview: boolean;
@@ -31,7 +32,9 @@ export default ((userOpts?: Partial<SearchOptions>) => {
     return (
       <div className="top-nav-wrapper">
         <div className="top-nav-wrapper">
-          <div className="page-titles"></div>
+          <div className="headshot">
+            <MyProfile />
+          </div>
           <div className="desktop-only">
             <div className="flex header-links">
               {opts.folders.map((folder) => (

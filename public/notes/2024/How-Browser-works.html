@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"><head><title>How Browser works</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Rubik:wght@400;700&amp;family=Source Sans Pro:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta property="og:title" content="How Browser works"/><meta property="og:description" content="..."/><meta property="og:image" content="https://example.github.io/static/icon.jpg"/><meta property="og:width" content="1200"/><meta property="og:height" content="675"/><link rel="icon" href="../../static/icon.jpg"/><meta name="description" content="..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="notes/2024/How-Browser-works"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><div class="spacer mobile-only"></div></div><div class="center"><div class="page-header"><div class="top-nav-wrapper"><div class="top-nav-wrapper"><div class="headshot"><img src="/static/icon.jpg" alt="My Profile"/></div><div class="desktop-only"><div class="flex header-links"><a class="header-link" href="/notes">Notes</a><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="search"><button class="search-button" id="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div></div></div></div><div class="popover-hint"><div class="mobile-only"><div class="top-nav"><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div><div id="mobile-links" class="off-screen-menu"><div class="mobile-header-links"><a class="header-link" href="/notes">Notes</a><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="search"><button class="search-button" id="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div id="search-layout" data-preview="true"></div></div></div></div></div></div></div></div></div></div><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../notes/">notes</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../notes/2024/">2024</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>How Browser works</a></div></nav><h1 class="article-title">How Browser works</h1><p show-comma="true" class="content-meta"><span>Sep 21, 2025</span><span>6 min read</span></p><ul class="tags"><li><a href="../../tags/browser" class="internal tag-link">browser</a></li><li><a href="../../tags/front-end" class="internal tag-link">front-end</a></li><li><a href="../../tags/react" class="internal tag-link">react</a></li><li><a href="../../tags/css" class="internal tag-link">css</a></li></ul><div class="toc mobile-only"><button type="button" id="toc" class="collapsed" aria-controls="toc-content" aria-expanded="false"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class="collapsed"><ul class="overflow"><li class="depth-0"><a href="#how-a-web-browser-works-architecture-and-example" data-for="how-a-web-browser-works-architecture-and-example">How a Web Browser Works: Architecture and Example</a></li><li class="depth-0"><a href="#browser-architecture-components" data-for="browser-architecture-components">Browser Architecture Components</a></li><li class="depth-0"><a href="#how-a-browser-works-example-walkthrough" data-for="how-a-browser-works-example-walkthrough">How a Browser Works: Example Walkthrough</a></li><li class="depth-0"><a href="#example-interaction" data-for="example-interaction">Example Interaction</a></li><li class="depth-0"><a href="#key-performance-aspects" data-for="key-performance-aspects">Key Performance Aspects</a></li><li class="depth-0"><a href="#conclusion" data-for="conclusion">Conclusion</a></li></ul></div></div></div></div><article class="popover-hint"><p><img src="../../pics/Screenshot_2024-10-10_at_6.40.56_PM.png" alt="Screenshot 2024-10-10 at 6.40.56 PM.png"/></p>
+<p>Step 1 : First it will get file from remote server in and load  it and get the raw data (binary data)</p>
+<p>step2 : convert that into the characters and <code>tokenize</code> the characters</p>
+<p>step3 : convert the characters and build the objects for example</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="css" data-theme="github-light github-dark"><code data-language="css" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">   tagName</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;h1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">   text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">:</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;asirfnioar&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">   children:</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<p>step4: relationship among the models</p>
+<p>step3: convert them as nodes (NodeList) → DOM</p>
+<p>same things for css will happen (CSSOM)</p>
+<h3 id="how-a-web-browser-works-architecture-and-example">How a Web Browser Works: Architecture and Example<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#how-a-web-browser-works-architecture-and-example" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A web browser is a software application that allows users to retrieve, view, and interact with content from the web, primarily in the form of web pages. The browser’s architecture consists of several components that work together to fetch web content, render it, and display it to the user.</p>
+<p>Let’s break down the <strong>architecture of a browser</strong> and how it works step-by-step with an example.</p>
+<h3 id="browser-architecture-components">Browser Architecture Components<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#browser-architecture-components" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>
+<p><strong>User Interface (UI)</strong>:</p>
+<ul>
+<li>This is what the user interacts with: the address bar, back/forward buttons, bookmarks, etc.</li>
+<li>Example: When you open a browser like Chrome or Firefox, the visible part is the user interface where you can type a URL, navigate pages, or view open tabs.</li>
+</ul>
+</li>
+<li>
+<p><strong>Browser Engine</strong>:</p>
+<ul>
+<li>The browser engine manages actions between the UI and the rendering engine. It takes commands from the UI (like navigating to a new page) and forwards them to the rendering engine.</li>
+<li>Example: When you type a URL and hit Enter, the browser engine coordinates the fetching and rendering of that webpage.</li>
+</ul>
+</li>
+<li>
+<p><strong>Rendering Engine</strong>:</p>
+<ul>
+<li>This component is responsible for parsing HTML, CSS, and JavaScript, and rendering the content onto the screen.</li>
+<li>Example: Once the page’s HTML and CSS are received, the rendering engine processes this information and displays the styled content on your screen.</li>
+</ul>
+<p>Popular rendering engines:</p>
+<ul>
+<li><strong>Blink</strong> (used by Chrome, Edge)</li>
+<li><strong>WebKit</strong> (used by Safari)</li>
+<li><strong>Gecko</strong> (used by Firefox)</li>
+</ul>
+</li>
+<li>
+<p><strong>Networking Layer</strong>:</p>
+<ul>
+<li>This layer handles all network calls, like fetching resources (HTML files, images, CSS, etc.) from a web server via HTTP/HTTPS.</li>
+<li>Example: When you enter a URL, this layer sends an HTTP request to the server hosting the website, retrieves the response (HTML, CSS, JavaScript, etc.), and forwards it to the rendering engine.</li>
+</ul>
+</li>
+<li>
+<p><strong>JavaScript Engine</strong>:</p>
+<ul>
+<li>Browsers have a JavaScript engine to parse and execute JavaScript code. The engine runs scripts embedded in web pages.</li>
+<li>Example: If a webpage has interactive elements (like forms, buttons, etc.), the JavaScript engine executes the required logic to handle user input or animations.</li>
+<li>JavaScript Engines:
+<ul>
+<li><strong>V8</strong> (used by Chrome, Edge)</li>
+<li><strong>SpiderMonkey</strong> (used by Firefox)</li>
+<li><strong>JavaScriptCore</strong> (used by Safari)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>UI Backend</strong>:</p>
+<ul>
+<li>This component is used to draw the basic widgets (checkboxes, buttons, etc.) on the web page. It works closely with the rendering engine.</li>
+<li>Example: When a form on a webpage has checkboxes or radio buttons, the UI backend helps render them.</li>
+</ul>
+</li>
+<li>
+<p><strong>Data Storage (Persistence Layer)</strong>:</p>
+<ul>
+<li>Browsers have local storage mechanisms (like cookies, local storage, indexedDB) to store user data locally on the client side.</li>
+<li>Example: When you log into a website and choose to “stay logged in”, the browser stores some data (like session tokens) in local storage.</li>
+</ul>
+</li>
+<li>
+<p><strong>Networking Layer</strong>:</p>
+<ul>
+<li>Manages network calls like DNS lookup, HTTP/HTTPS requests, and so on.</li>
+<li>Example: This layer sends out the request when you visit <code>example.com</code> and brings back the HTML response from the server.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h3 id="how-a-browser-works-example-walkthrough">How a Browser Works: Example Walkthrough<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#how-a-browser-works-example-walkthrough" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Let’s say you open a web browser (e.g., Google Chrome) and type <code>https://example.com</code> in the address bar and press Enter. Here’s a simplified step-by-step breakdown of what happens:</p>
+<ol>
+<li><strong>Input (User Interface)</strong>:
+<ul>
+<li>You enter <code>https://example.com</code> in the address bar and press Enter.</li>
+</ul>
+</li>
+<li><strong>Networking (Browser Engine and Networking Layer)</strong>:
+<ul>
+<li>The browser checks if <code>example.com</code> is cached locally. If not, it starts the process of retrieving the page from the server.</li>
+<li>The browser sends a <strong>DNS request</strong> to find the IP address of <code>example.com</code> and then sends an <strong>HTTP request</strong> to that server for the page.</li>
+</ul>
+</li>
+<li><strong>Server Response</strong>:
+<ul>
+<li>The server responds with an HTML file (and possibly CSS, JavaScript files, etc.) to the browser.</li>
+</ul>
+</li>
+<li><strong>Rendering Process (Rendering Engine)</strong>:
+<ul>
+<li>The <strong>HTML</strong> is parsed into the <strong>DOM tree</strong> (Document Object Model), which represents the structure of the web page.</li>
+<li>The <strong>CSS</strong> is parsed into a <strong>CSSOM tree</strong> (CSS Object Model), defining how elements should be styled (e.g., colors, fonts, layouts).</li>
+<li>The rendering engine combines the DOM tree and CSSOM tree to form the <strong>Render Tree</strong>, which will be used to display content visually.</li>
+</ul>
+</li>
+<li><strong>Layout &amp; Painting</strong>:
+<ul>
+<li><strong>Layout</strong>: The browser calculates the exact position and size of each element on the screen based on the render tree.</li>
+<li><strong>Painting</strong>: The visual representation (pixels) is drawn to the screen.</li>
+</ul>
+</li>
+<li><strong>JavaScript Execution (JavaScript Engine)</strong>:
+<ul>
+<li>If the HTML contains JavaScript, the <strong>JavaScript engine</strong> (e.g., V8 for Chrome) parses and executes it. JavaScript can manipulate the DOM and CSSOM trees dynamically (e.g., add new elements, update styles).</li>
+</ul>
+</li>
+<li><strong>Display (User Interface Backend)</strong>:
+<ul>
+<li>The fully rendered page is displayed in the browser window.</li>
+<li>Example: You see the content of <code>example.com</code> now rendered on your screen.</li>
+</ul>
+</li>
+</ol>
+<h3 id="example-interaction">Example Interaction<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#example-interaction" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>If the page has a button (e.g., “Click Me”), and that button has JavaScript associated with it, here’s how the browser will handle it:</p>
+<ol>
+<li>You click the button.</li>
+<li>The <strong>JavaScript engine</strong> processes the button’s event handler (code that should run when the button is clicked).</li>
+<li>Based on the code, the JavaScript engine might manipulate the DOM (e.g., show a message or change the button color).</li>
+<li>The <strong>rendering engine</strong> then repaints the part of the screen where the button is to reflect the changes.</li>
+</ol>
+<hr/>
+<h3 id="key-performance-aspects">Key Performance Aspects<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#key-performance-aspects" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>Rendering Performance</strong>: Browsers try to optimize rendering to avoid unnecessary recalculations and repaints (e.g., reflow or layout thrashing).</li>
+<li><strong>JavaScript Optimization</strong>: JavaScript engines use Just-In-Time (JIT) compilation to optimize code execution speed.</li>
+<li><strong>Network Optimization</strong>: Browsers employ techniques like HTTP caching, DNS prefetching, and resource prioritization to improve page load times.</li>
+</ul>
+<h3 id="conclusion">Conclusion<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#conclusion" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>A web browser is a complex system with many interworking components. From sending network requests to rendering web pages, the architecture is designed to handle a wide range of tasks to provide a seamless browsing experience. By splitting up these components, the browser can efficiently manage everything from HTML parsing to JavaScript execution and CSS styling.</p></article><hr/><div class="page-footer"><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" id="toc" class="collapsed" aria-controls="toc-content" aria-expanded="false"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class="collapsed"><ul class="overflow"><li class="depth-0"><a href="#how-a-web-browser-works-architecture-and-example" data-for="how-a-web-browser-works-architecture-and-example">How a Web Browser Works: Architecture and Example</a></li><li class="depth-0"><a href="#browser-architecture-components" data-for="browser-architecture-components">Browser Architecture Components</a></li><li class="depth-0"><a href="#how-a-browser-works-example-walkthrough" data-for="how-a-browser-works-example-walkthrough">How a Browser Works: Example Walkthrough</a></li><li class="depth-0"><a href="#example-interaction" data-for="example-interaction">Example Interaction</a></li><li class="depth-0"><a href="#key-performance-aspects" data-for="key-performance-aspects">Key Performance Aspects</a></li><li class="depth-0"><a href="#conclusion" data-for="conclusion">Conclusion</a></li></ul></div></div></div><footer class><p>Build with ♥ Sanjay V © 2025</p><ul><li><a href="https://github.com/sanjay2024">GitHub</a></li><li><a href="https://www.linkedin.com/in/sanjay2024/">Linkedin</a></li><li><a href="https://x.com/sanjayv22318195">Twitter</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script type="module">
+          let mermaidImport = undefined
+          document.addEventListener('nav', async () => {
+            if (document.querySelector("code.mermaid")) {
+              mermaidImport ||= await import('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs')
+              const mermaid = mermaidImport.default
+              const darkMode = document.documentElement.getAttribute('saved-theme') === 'dark'
+              mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'loose',
+                theme: darkMode ? 'dark' : 'default'
+              })
+
+              await mermaid.run({
+                querySelector: '.mermaid'
+              })
+            }
+          });
+          </script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/copy-tex.min.js" type="application/javascript"></script><script type="application/javascript">
+        const socket = new WebSocket('ws://localhost:3001')
+        // reload(true) ensures resources like images and scripts are fetched again in firefox
+        socket.addEventListener('message', () => document.location.reload(true))
+      </script><script src="../../postscript.js" type="module"></script></html>

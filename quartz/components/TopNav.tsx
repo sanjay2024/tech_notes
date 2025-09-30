@@ -208,6 +208,6 @@ pre:hover>.clipboard-button {
 
 export default (() => TopNav) satisfies QuartzComponentConstructor;
 
-function MyProfile() {
+export function MyProfile() {
   return <img src="/static/icon.jpg" alt="My Profile" />;
 }
